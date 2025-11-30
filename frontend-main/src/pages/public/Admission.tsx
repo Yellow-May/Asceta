@@ -2,8 +2,18 @@ const Admission = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-4xl font-bold text-gray-800 mb-8">Admission</h1>
+      <div className="mb-8">
+        <img
+          src="/images/admission_poster.jpg"
+          alt="Admission Information"
+          className="w-full rounded-lg shadow-lg"
+          onError={(e) => {
+            (e.target as HTMLImageElement).src = '/images/abia_state_admission.jpg';
+          }}
+        />
+      </div>
       <div className="prose max-w-none">
-        <h2 className="text-2xl font-bold text-gray-800 mt-8 mb-4">Undergraduate Admission</h2>
+        <h2 className="text-2xl font-bold text-gray-800 mt-8 mb-4">NCE Admission</h2>
         <p className="text-lg text-gray-700 mb-4">
           Applications are invited from suitably qualified candidates for admission into various
           NCE (Nigeria Certificate in Education) programs at Abia State College of Education
@@ -25,7 +35,7 @@ const Admission = () => {
           <li>Pay the application fee</li>
           <li>Submit your application</li>
         </ol>
-        <div className="mt-8 p-4 bg-asceta-green text-white rounded-lg">
+        <div className="mt-8 p-4 bg-asceta-blue text-white rounded-lg">
           <p className="font-semibold">For more information, contact:</p>
           <p>Admissions Office</p>
           <p>Email: admissions@asceta.edu.ng</p>

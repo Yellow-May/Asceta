@@ -15,19 +15,19 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-bold mb-4">Quick Links</h3>
             <ul className="space-y-2">
-              <li><Link to="/about" className="hover:text-asceta-green">About</Link></li>
-              <li><Link to="/admission" className="hover:text-asceta-green">Admission</Link></li>
-              <li><Link to="/academics" className="hover:text-asceta-green">Academics</Link></li>
-              <li><Link to="/leadership" className="hover:text-asceta-green">Leadership</Link></li>
-              <li><Link to="/news" className="hover:text-asceta-green">News</Link></li>
+              <li><Link to="/about" className="hover:text-asceta-blue">About</Link></li>
+              <li><Link to="/admission" className="hover:text-asceta-blue">Admission</Link></li>
+              <li><Link to="/academics" className="hover:text-asceta-blue">Academics</Link></li>
+              <li><Link to="/leadership" className="hover:text-asceta-blue">Leadership</Link></li>
+              <li><Link to="/news" className="hover:text-asceta-blue">News</Link></li>
             </ul>
           </div>
           <div>
             <h3 className="text-lg font-bold mb-4">Resources</h3>
             <ul className="space-y-2">
-              <li><Link to="/student/login" className="hover:text-asceta-green">Student Portal</Link></li>
-              <li><Link to="/events" className="hover:text-asceta-green">Events</Link></li>
-              <li><Link to="/contact" className="hover:text-asceta-green">Contact</Link></li>
+              <li><Link to="/student/login" className="hover:text-asceta-blue">Student Portal</Link></li>
+              <li><Link to="/events" className="hover:text-asceta-blue">Events</Link></li>
+              <li><Link to="/contact" className="hover:text-asceta-blue">Contact</Link></li>
             </ul>
           </div>
         </div>

@@ -36,7 +36,7 @@ const Profile = () => {
           </div>
         </div>
         <div className="mt-6">
-          <button className="bg-asceta-green text-white px-6 py-2 rounded-lg hover:bg-asceta-dark-green">
+          <button className="bg-asceta-blue text-white px-6 py-2 rounded-lg hover:bg-asceta-dark-blue">
             Edit Profile
           </button>
         </div>

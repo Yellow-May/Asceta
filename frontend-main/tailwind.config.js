@@ -7,8 +7,10 @@ export default {
   theme: {
     extend: {
       colors: {
-        'asceta-green': '#008000',
-        'asceta-dark-green': '#006600',
+        'asceta-blue': '#1e40af',
+        'asceta-dark-blue': '#1e3a8a',
+        'asceta-red': '#dc2626',
+        'asceta-dark-red': '#b91c1c',
       },
     },
   },

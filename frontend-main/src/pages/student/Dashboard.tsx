@@ -46,31 +46,31 @@ const Dashboard = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         <div className="bg-white p-6 rounded-lg shadow-md">
-          <h3 className="text-lg font-semibold text-asceta-green mb-2">Academic Information</h3>
+          <h3 className="text-lg font-semibold text-asceta-blue mb-2">Academic Information</h3>
           <p className="text-gray-600">View your courses, grades, and academic records</p>
           <Link
             to="/student/academics"
-            className="text-asceta-green hover:underline mt-2 inline-block"
+            className="text-asceta-blue hover:underline mt-2 inline-block"
           >
             View Details →
           </Link>
         </div>
         <div className="bg-white p-6 rounded-lg shadow-md">
-          <h3 className="text-lg font-semibold text-asceta-green mb-2">Announcements</h3>
+          <h3 className="text-lg font-semibold text-asceta-blue mb-2">Announcements</h3>
           <p className="text-gray-600">Stay updated with latest announcements</p>
           <Link
             to="/news"
-            className="text-asceta-green hover:underline mt-2 inline-block"
+            className="text-asceta-blue hover:underline mt-2 inline-block"
           >
             View All →
           </Link>
         </div>
         <div className="bg-white p-6 rounded-lg shadow-md">
-          <h3 className="text-lg font-semibold text-asceta-green mb-2">Profile</h3>
+          <h3 className="text-lg font-semibold text-asceta-blue mb-2">Profile</h3>
           <p className="text-gray-600">Manage your profile and settings</p>
           <Link
             to="/student/profile"
-            className="text-asceta-green hover:underline mt-2 inline-block"
+            className="text-asceta-blue hover:underline mt-2 inline-block"
           >
             Edit Profile →
           </Link>

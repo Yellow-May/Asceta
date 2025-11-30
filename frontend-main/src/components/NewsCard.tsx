@@ -32,7 +32,7 @@ const NewsCard: React.FC<NewsCardProps> = ({
         )}
         <div className="p-4">
           {category && (
-            <span className="text-xs text-asceta-green font-semibold uppercase">
+            <span className="text-xs text-asceta-blue font-semibold uppercase">
               {category}
             </span>
           )}

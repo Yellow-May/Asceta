@@ -47,8 +47,15 @@ const Home = () => {
   return (
     <div>
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-asceta-green to-asceta-dark-green text-white py-20">
-        <div className="container mx-auto px-4 text-center">
+      <section className="relative bg-gradient-to-r from-asceta-blue to-asceta-dark-blue text-white py-20 overflow-hidden">
+        <div className="absolute inset-0 opacity-20">
+          <img
+            src="/images/hero-1.png"
+            alt="ASCETA Campus"
+            className="w-full h-full object-cover"
+          />
+        </div>
+        <div className="container mx-auto px-4 text-center relative z-10">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
             Welcome to ASCETA
           </h1>
@@ -58,13 +65,13 @@ const Home = () => {
           <div className="flex gap-4 justify-center">
             <Link
               to="/admission"
-              className="bg-white text-asceta-green px-6 py-3 rounded-lg font-semibold hover:bg-gray-100"
+              className="bg-white text-asceta-blue px-6 py-3 rounded-lg font-semibold hover:bg-gray-100"
             >
               Apply Now
             </Link>
             <Link
               to="/about"
-              className="border-2 border-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-asceta-green"
+              className="border-2 border-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-asceta-blue"
             >
               Learn More
             </Link>
@@ -81,7 +88,7 @@ const Home = () => {
               className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow text-center"
             >
               <div className="text-4xl mb-4">🎓</div>
-              <h3 className="text-lg font-bold text-asceta-green">Admission</h3>
+              <h3 className="text-lg font-bold text-asceta-blue">Admission</h3>
               <p className="text-sm text-gray-600 mt-2">Apply for admission</p>
             </Link>
             <Link
@@ -89,7 +96,7 @@ const Home = () => {
               className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow text-center"
             >
               <div className="text-4xl mb-4">📚</div>
-              <h3 className="text-lg font-bold text-asceta-green">Academics</h3>
+              <h3 className="text-lg font-bold text-asceta-blue">Academics</h3>
               <p className="text-sm text-gray-600 mt-2">Academic programs</p>
             </Link>
             <Link
@@ -97,7 +104,7 @@ const Home = () => {
               className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow text-center"
             >
               <div className="text-4xl mb-4">👤</div>
-              <h3 className="text-lg font-bold text-asceta-green">Student Portal</h3>
+              <h3 className="text-lg font-bold text-asceta-blue">Student Portal</h3>
               <p className="text-sm text-gray-600 mt-2">Access your portal</p>
             </Link>
             <Link
@@ -105,7 +112,7 @@ const Home = () => {
               className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow text-center"
             >
               <div className="text-4xl mb-4">📅</div>
-              <h3 className="text-lg font-bold text-asceta-green">Events</h3>
+              <h3 className="text-lg font-bold text-asceta-blue">Events</h3>
               <p className="text-sm text-gray-600 mt-2">View upcoming events</p>
             </Link>
           </div>
@@ -117,7 +124,7 @@ const Home = () => {
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center mb-8">
             <h2 className="text-3xl font-bold text-gray-800">Latest News</h2>
-            <Link to="/news" className="text-asceta-green hover:underline">
+            <Link to="/news" className="text-asceta-blue hover:underline">
               View All →
             </Link>
           </div>
@@ -138,7 +145,7 @@ const Home = () => {
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center mb-8">
             <h2 className="text-3xl font-bold text-gray-800">Upcoming Events</h2>
-            <Link to="/events" className="text-asceta-green hover:underline">
+            <Link to="/events" className="text-asceta-blue hover:underline">
               View All →
             </Link>
           </div>

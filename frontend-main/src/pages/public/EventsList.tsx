@@ -84,7 +84,7 @@ const EventsList = () => {
               <button
                 onClick={() => setPage((p) => Math.max(1, p - 1))}
                 disabled={page === 1}
-                className="px-4 py-2 bg-asceta-green text-white rounded disabled:opacity-50"
+                className="px-4 py-2 bg-asceta-blue text-white rounded disabled:opacity-50"
               >
                 Previous
               </button>
@@ -94,7 +94,7 @@ const EventsList = () => {
               <button
                 onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                 disabled={page === totalPages}
-                className="px-4 py-2 bg-asceta-green text-white rounded disabled:opacity-50"
+                className="px-4 py-2 bg-asceta-blue text-white rounded disabled:opacity-50"
               >
                 Next
               </button>

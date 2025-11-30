@@ -56,7 +56,7 @@ const NewsDetail = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <Link to="/news" className="text-asceta-green hover:underline mb-4 inline-block">
+      <Link to="/news" className="text-asceta-blue hover:underline mb-4 inline-block">
         ← Back to News
       </Link>
       <article className="max-w-4xl mx-auto">
@@ -68,7 +68,7 @@ const NewsDetail = () => {
           />
         )}
         {news.category && (
-          <span className="text-sm text-asceta-green font-semibold uppercase">
+          <span className="text-sm text-asceta-blue font-semibold uppercase">
             {news.category}
           </span>
         )}
