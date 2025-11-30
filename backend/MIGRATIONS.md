@@ -36,3 +36,4 @@ yarn migration:revert
 In development mode, TypeORM's `synchronize` option is enabled, which automatically syncs your entities with the database schema. For production, disable `synchronize` and use migrations instead.
 
 
+
