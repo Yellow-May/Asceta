@@ -1,19 +1,4 @@
 const Academics = () => {
-  const colleges = [
-    'College of Agricultural Economics, Rural Sociology and Extension',
-    'College of Applied Food Sciences and Tourism',
-    'College of Animal Science and Animal Production',
-    'College of Crop and Soil Sciences',
-    'College of Engineering and Engineering Technology',
-    'College of Natural Resources And Environmental Management',
-    'College of Education',
-    'College of Natural Science',
-    'College of Physical and Applied Sciences',
-    'College of Management Science',
-    'School of General Studies',
-    'College of Veterinary Medicine',
-  ];
-
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-4xl font-bold text-gray-800 mb-8">Academics</h1>
