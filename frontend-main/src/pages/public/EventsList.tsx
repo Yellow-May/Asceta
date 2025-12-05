@@ -54,7 +54,7 @@ const EventsList = () => {
     setLoading(true);
     const startIndex = (page - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
-    const paginatedEvents = eventsData.events.slice(startIndex, endIndex);
+    const paginatedEvents = (eventsData.events as Event[]).slice(startIndex, endIndex);
     setEvents(paginatedEvents);
     setLoading(false);
   }, [page]);

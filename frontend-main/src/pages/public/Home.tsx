@@ -70,7 +70,6 @@ const Home = () => {
           (a, b) =>
             new Date(b.eventDate).getTime() - new Date(a.eventDate).getTime()
         );
-        console.log(sortedEvents);
         setEvents(sortedEvents.slice(0, 3));
       } catch (error) {
         console.error("Error fetching data:", error);
