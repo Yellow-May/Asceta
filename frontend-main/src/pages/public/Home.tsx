@@ -1,41 +1,79 @@
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import api from '../../services/api';
-import NewsCard from '../../components/NewsCard';
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+// import api from "../../services/api";
+// import NewsCard from "../../components/NewsCard";
+import eventsData from "../../data/events.json";
+import EventCard from "../../components/EventCard";
 
-interface News {
-  id: string;
-  title: string;
-  content: string;
-  imageUrl?: string;
-  publishDate?: string;
-  category?: string;
+// interface News {
+//   id: string;
+//   title: string;
+//   content: string;
+//   imageUrl?: string;
+//   publishDate?: string;
+//   category?: string;
+// }
+
+interface EventContent {
+  summary?: string;
+  sections?: Array<{
+    type: "text" | "image" | "list" | "quote";
+    title?: string;
+    content: string | string[];
+    imageUrl?: string;
+  }>;
+  metadata?: {
+    tags?: string[];
+    category?: string;
+    [key: string]: any;
+  };
 }
 
 interface Event {
   id: string;
   title: string;
-  description: string;
+  content: EventContent;
   eventDate: string;
   location?: string;
+  imageUrl?: string;
 }
 
 const Home = () => {
-  const [news, setNews] = useState<News[]>([]);
+  // const [news, setNews] = useState<News[]>([]);
   const [events, setEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
+
+  // Carousel images
+  const carouselImages = [
+    "/images/hero-1.png",
+    "/images/academics_image.jpg",
+    "/images/art-department.png",
+    "/images/campus_project.jpg",
+    "/images/citadel-building.png",
+    "/images/governor_project.jpg",
+    "/images/hero-2.png",
+  ];
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [newsRes, eventsRes] = await Promise.all([
-          api.get('/news?limit=4'),
-          api.get('/events?limit=3'),
-        ]);
-        setNews(newsRes.data.news || []);
-        setEvents(eventsRes.data.events || []);
+        // const [newsRes] = await Promise.all([
+        // api.get("/news?limit=4"),
+        // Commented out events API call - using JSON data instead
+        // api.get('/events?limit=3'),
+        // ]);
+        // setNews(newsRes.data.news || []);
+        // Using JSON data for events instead of API
+        // Sort events by date (most recent/upcoming first) and take first 3
+        const sortedEvents = (eventsData.events as Event[]).sort(
+          (a, b) =>
+            new Date(b.eventDate).getTime() - new Date(a.eventDate).getTime()
+        );
+        console.log(sortedEvents);
+        setEvents(sortedEvents.slice(0, 3));
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
       } finally {
         setLoading(false);
       }
@@ -44,17 +82,37 @@ const Home = () => {
     fetchData();
   }, []);
 
+  // Auto-scroll carousel
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex(
+        (prevIndex) => (prevIndex + 1) % carouselImages.length
+      );
+    }, 5000); // Change image every 5 seconds
+
+    return () => clearInterval(interval);
+  }, [carouselImages.length]);
+
   return (
     <div>
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-r from-asceta-blue to-asceta-dark-blue text-white py-20 overflow-hidden">
-        <div className="absolute inset-0 opacity-20">
-          <img
-            src="/images/hero-1.png"
-            alt="ASCETA Campus"
-            className="w-full h-full object-cover"
-          />
+      <section className="relative text-white py-20 xl:py-32 overflow-hidden">
+        <div className="absolute inset-0">
+          <div className="relative w-full h-full">
+            {carouselImages.map((image, index) => (
+              <img
+                key={index}
+                src={image}
+                alt={`ASCETA Campus ${index + 1}`}
+                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
+                  index === currentImageIndex ? "opacity-100" : "opacity-0"
+                }`}
+              />
+            ))}
+          </div>
         </div>
+        {/* Dark overlay to reduce contrast and improve text readability */}
+        <div className="absolute inset-0 bg-black opacity-40"></div>
         <div className="container mx-auto px-4 text-center relative z-10">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
             Welcome to ASCETA
@@ -104,7 +162,9 @@ const Home = () => {
               className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow text-center"
             >
               <div className="text-4xl mb-4">👤</div>
-              <h3 className="text-lg font-bold text-asceta-blue">Student Portal</h3>
+              <h3 className="text-lg font-bold text-asceta-blue">
+                Student Portal
+              </h3>
               <p className="text-sm text-gray-600 mt-2">Access your portal</p>
             </Link>
             <Link
@@ -120,7 +180,7 @@ const Home = () => {
       </section>
 
       {/* Latest News */}
-      <section className="py-12">
+      {/* <section className="py-12">
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center mb-8">
             <h2 className="text-3xl font-bold text-gray-800">Latest News</h2>
@@ -138,13 +198,15 @@ const Home = () => {
             </div>
           )}
         </div>
-      </section>
+      </section> */}
 
       {/* Upcoming Events */}
       <section className="py-12 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center mb-8">
-            <h2 className="text-3xl font-bold text-gray-800">Upcoming Events</h2>
+            <h2 className="text-3xl font-bold text-gray-800">
+              Upcoming Events
+            </h2>
             <Link to="/events" className="text-asceta-blue hover:underline">
               View All →
             </Link>
@@ -154,19 +216,7 @@ const Home = () => {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {events.map((event) => (
-                <div
-                  key={event.id}
-                  className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow"
-                >
-                  <h3 className="text-xl font-bold text-gray-800 mb-2">
-                    {event.title}
-                  </h3>
-                  <p className="text-gray-600 mb-4">{event.description}</p>
-                  <div className="text-sm text-gray-500">
-                    <p>📅 {new Date(event.eventDate).toLocaleDateString()}</p>
-                    {event.location && <p>📍 {event.location}</p>}
-                  </div>
-                </div>
+                <EventCard key={event.id} event={event} />
               ))}
             </div>
           )}
@@ -177,4 +227,3 @@ const Home = () => {
 };
 
 export default Home;
-

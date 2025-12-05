@@ -1,0 +1,52 @@
+{
+  "events": [
+    {
+      "id": "7",
+      "title": "Christmas in ASCETA 2025",
+      "content": {
+        "summary": "A Celebration of Love, Light & Learning! Join us for a beautiful Christmas celebration where education meets culture, family, and pure celebration.",
+        "sections": [
+          {
+            "type": "text",
+            "title": "Welcome to Christmas in ASCETA",
+            "content": "This December, something beautiful is happening on our campus. The colours will be brighter, the music sweeter, and the atmosphere warmer — because ASCETA is stepping into the Christmas season with joy, culture, and unity! From the leadership of our dear Provost, Dr. I. O. Eluwa, comes an invitation to every student, staff, friend, and lover of ASCETA: Come and experience Christmas the ASCETA way — where education meets culture, family, and pure celebration!"
+          },
+          {
+            "type": "list",
+            "title": "What to Expect",
+            "content": [
+              "Heart-lifting Cultural Performances",
+              "Soul-stirring Christmas Carols",
+              "Inspiring Music Presentations",
+              "Drama that will make you laugh, reflect, and celebrate",
+              "Games, Fun & Community Bonding",
+              "Gift Exchange (Come with a gift, leave with love!)",
+              "A special Visit to Santa Claus"
+            ]
+          },
+          {
+            "type": "text",
+            "title": "Event Details",
+            "content": "Date: 10th–11th December, 2025 | Time: 11am daily | Venue: ASCETA Premises"
+          },
+          {
+            "type": "quote",
+            "content": "Christmas is more than a season — it is a message. A message of hope. A message of community. A message of light shining even brighter when shared. This year, we're not just celebrating Christmas… We're celebrating the ASCETA family. A family that grows, learns, smiles, and shines together."
+          },
+          {
+            "type": "text",
+            "title": "Join Us",
+            "content": "Don't miss this. Bring your energy. Bring your friends. Bring your Christmas spirit. Let's make memories that will echo into the new year."
+          }
+        ],
+        "metadata": {
+          "tags": ["christmas", "celebration", "culture", "community"],
+          "category": "Social"
+        }
+      },
+      "eventDate": "2025-12-10T11:00:00",
+      "location": "ASCETA Premises",
+      "imageUrl": "/images/christmas-in-asceta.jpg"
+    }
+  ]
+}

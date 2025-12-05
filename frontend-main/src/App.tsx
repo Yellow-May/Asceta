@@ -12,6 +12,7 @@ import Academics from './pages/public/Academics';
 import NewsList from './pages/public/NewsList';
 import NewsDetail from './pages/public/NewsDetail';
 import EventsList from './pages/public/EventsList';
+import EventDetail from './pages/public/EventDetail';
 import Contact from './pages/public/Contact';
 import Leadership from './pages/public/Leadership';
 
@@ -35,6 +36,7 @@ function App() {
               <Route path="/news" element={<NewsList />} />
               <Route path="/news/:id" element={<NewsDetail />} />
               <Route path="/events" element={<EventsList />} />
+              <Route path="/events/:id" element={<EventDetail />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/leadership" element={<Leadership />} />
               <Route path="/student/login" element={<Login />} />

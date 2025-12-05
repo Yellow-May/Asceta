@@ -1,10 +1,27 @@
 import { useEffect, useState } from 'react';
-import api from '../../services/api';
+// import api from '../../services/api';
+import eventsData from '../../data/events.json';
+import EventCard from '../../components/EventCard';
+
+interface EventContent {
+  summary?: string;
+  sections?: Array<{
+    type: 'text' | 'image' | 'list' | 'quote';
+    title?: string;
+    content: string | string[];
+    imageUrl?: string;
+  }>;
+  metadata?: {
+    tags?: string[];
+    category?: string;
+    [key: string]: any;
+  };
+}
 
 interface Event {
   id: string;
   title: string;
-  description: string;
+  content: EventContent;
   eventDate: string;
   location?: string;
   imageUrl?: string;
@@ -14,23 +31,32 @@ const EventsList = () => {
   const [events, setEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
+  const itemsPerPage = 12;
+  const totalPages = Math.ceil(eventsData.events.length / itemsPerPage);
 
   useEffect(() => {
-    const fetchEvents = async () => {
-      try {
-        setLoading(true);
-        const response = await api.get(`/events?page=${page}&limit=12`);
-        setEvents(response.data.events || []);
-        setTotalPages(response.data.pagination?.pages || 1);
-      } catch (error) {
-        console.error('Error fetching events:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
+    // Commented out API call - using JSON data instead
+    // const fetchEvents = async () => {
+    //   try {
+    //     setLoading(true);
+    //     const response = await api.get(`/events?page=${page}&limit=12`);
+    //     setEvents(response.data.events || []);
+    //     setTotalPages(response.data.pagination?.pages || 1);
+    //   } catch (error) {
+    //     console.error('Error fetching events:', error);
+    //   } finally {
+    //     setLoading(false);
+    //   }
+    // };
+    // fetchEvents();
 
-    fetchEvents();
+    // Using JSON data instead
+    setLoading(true);
+    const startIndex = (page - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const paginatedEvents = eventsData.events.slice(startIndex, endIndex);
+    setEvents(paginatedEvents);
+    setLoading(false);
   }, [page]);
 
   return (
@@ -42,41 +68,7 @@ const EventsList = () => {
         <>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {events.map((event) => (
-              <div
-                key={event.id}
-                className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
-              >
-                {event.imageUrl && (
-                  <img
-                    src={event.imageUrl}
-                    alt={event.title}
-                    className="w-full h-48 object-cover"
-                  />
-                )}
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-gray-800 mb-2">
-                    {event.title}
-                  </h3>
-                  <p className="text-gray-600 mb-4">{event.description}</p>
-                  <div className="text-sm text-gray-500 space-y-1">
-                    <p className="flex items-center gap-2">
-                      <span>📅</span>
-                      {new Date(event.eventDate).toLocaleDateString('en-US', {
-                        weekday: 'long',
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric',
-                      })}
-                    </p>
-                    {event.location && (
-                      <p className="flex items-center gap-2">
-                        <span>📍</span>
-                        {event.location}
-                      </p>
-                    )}
-                  </div>
-                </div>
-              </div>
+              <EventCard key={event.id} event={event} />
             ))}
           </div>
           {totalPages > 1 && (

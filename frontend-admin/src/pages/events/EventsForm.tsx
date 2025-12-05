@@ -1,17 +1,17 @@
-import { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import api from '../../services/api';
+import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import api from "../../services/api";
 
 const EventsForm = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
-    title: '',
-    description: '',
-    eventDate: '',
-    location: '',
-    imageUrl: '',
+    title: "",
+    description: "",
+    eventDate: "",
+    location: "",
+    imageUrl: "",
   });
 
   useEffect(() => {
@@ -23,12 +23,12 @@ const EventsForm = () => {
           setFormData({
             title: event.title,
             description: event.description,
-            eventDate: event.eventDate.split('T')[0],
-            location: event.location || '',
-            imageUrl: event.imageUrl || '',
+            eventDate: event.eventDate.split("T")[0],
+            location: event.location || "",
+            imageUrl: event.imageUrl || "",
           });
         } catch (error) {
-          console.error('Error fetching event:', error);
+          console.error("Error fetching event:", error);
         }
       };
       fetchEvent();
@@ -43,12 +43,12 @@ const EventsForm = () => {
       if (id) {
         await api.put(`/events/${id}`, formData);
       } else {
-        await api.post('/events', formData);
+        await api.post("/events", formData);
       }
-      navigate('/events');
+      navigate("/events");
     } catch (error: any) {
-      console.error('Error saving event:', error);
-      alert(error.response?.data?.message || 'Failed to save event');
+      console.error("Error saving event:", error);
+      alert(error.response?.data?.message || "Failed to save event");
     } finally {
       setLoading(false);
     }
@@ -57,9 +57,12 @@ const EventsForm = () => {
   return (
     <div className="p-6">
       <h1 className="text-3xl font-bold text-gray-800 mb-6">
-        {id ? 'Edit Event' : 'Create Event'}
+        {id ? "Edit Event" : "Create Event"}
       </h1>
-      <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-md">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white p-6 rounded-lg shadow-md"
+      >
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700 mb-2">
             Title *
@@ -68,7 +71,9 @@ const EventsForm = () => {
             type="text"
             required
             value={formData.title}
-            onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+            onChange={(e) =>
+              setFormData({ ...formData, title: e.target.value })
+            }
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-blue"
           />
         </div>
@@ -81,7 +86,9 @@ const EventsForm = () => {
             required
             rows={6}
             value={formData.description}
-            onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+            onChange={(e) =>
+              setFormData({ ...formData, description: e.target.value })
+            }
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-blue"
           />
         </div>
@@ -94,7 +101,9 @@ const EventsForm = () => {
             type="datetime-local"
             required
             value={formData.eventDate}
-            onChange={(e) => setFormData({ ...formData, eventDate: e.target.value })}
+            onChange={(e) =>
+              setFormData({ ...formData, eventDate: e.target.value })
+            }
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-blue"
           />
         </div>
@@ -106,7 +115,9 @@ const EventsForm = () => {
           <input
             type="text"
             value={formData.location}
-            onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+            onChange={(e) =>
+              setFormData({ ...formData, location: e.target.value })
+            }
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-blue"
           />
         </div>
@@ -118,7 +129,9 @@ const EventsForm = () => {
           <input
             type="url"
             value={formData.imageUrl}
-            onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
+            onChange={(e) =>
+              setFormData({ ...formData, imageUrl: e.target.value })
+            }
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-blue"
           />
         </div>
@@ -129,11 +142,11 @@ const EventsForm = () => {
             disabled={loading}
             className="bg-admin-blue text-white px-6 py-2 rounded hover:bg-admin-dark-blue disabled:opacity-50"
           >
-            {loading ? 'Saving...' : id ? 'Update' : 'Create'}
+            {loading ? "Saving..." : id ? "Update" : "Create"}
           </button>
           <button
             type="button"
-            onClick={() => navigate('/events')}
+            onClick={() => navigate("/events")}
             className="bg-gray-300 text-gray-700 px-6 py-2 rounded hover:bg-gray-400"
           >
             Cancel
@@ -145,6 +158,3 @@ const EventsForm = () => {
 };
 
 export default EventsForm;
-
-
-
