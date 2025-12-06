@@ -389,14 +389,14 @@ const Landing = () => {
                   <div className="w-16 h-16 bg-asceta-blue text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
                     2
                   </div>
-                  <p className="text-gray-700">Pay for the application form.</p>
+                  <p className="text-gray-700">Payment for application form.</p>
                 </div>
                 <div className="text-center">
                   <div className="w-16 h-16 bg-asceta-blue text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
                     3
                   </div>
                   <p className="text-gray-700">
-                    Wait for admission confirmation and onboarding information.
+                    Fill out the application form.
                   </p>
                 </div>
                 <div className="text-center">
