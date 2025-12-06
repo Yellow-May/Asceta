@@ -18,15 +18,31 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-// Handle 401 errors
+// Handle errors
 api.interceptors.response.use(
   (response) => response,
   (error) => {
+    // Handle network errors
+    if (!error.response) {
+      // Network error or server not reachable
+      if (error.code === 'ERR_NETWORK' || error.message === 'Network Error') {
+        console.error('Network error:', {
+          message: error.message,
+          code: error.code,
+          baseURL: API_URL,
+          url: error.config?.url,
+        });
+        error.message = 'Failed to fetch. Please check if the backend server is running.';
+      }
+    }
+    
+    // Handle 401 errors
     if (error.response?.status === 401) {
       localStorage.removeItem('token');
       localStorage.removeItem('user');
       window.location.href = '/student/login';
     }
+    
     return Promise.reject(error);
   }
 );

@@ -178,6 +178,17 @@ const Home = () => {
         </div>
       </section>
 
+      {/* Important!! */}
+      <section className="relative overflow-hidden">
+        <Link to="/accadd" className="w-full h-full bg-black">
+          <img
+            src={"/images/accadd.jpg"}
+            alt={`ACCASS`}
+            className={`w-full h-full object-contain`}
+          />
+        </Link>
+      </section>
+
       {/* Latest News */}
       {/* <section className="py-12">
         <div className="container mx-auto px-4">

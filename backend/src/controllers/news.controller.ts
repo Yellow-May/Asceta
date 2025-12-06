@@ -116,7 +116,7 @@ export const createNews = [
         status: status || NewsStatus.DRAFT,
         authorId: req.user.id,
         publishDate:
-          status === NewsStatus.PUBLISHED ? new Date() : null,
+          status === NewsStatus.PUBLISHED ? new Date() : undefined,
       });
 
       await newsRepository.save(news);

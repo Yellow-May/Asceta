@@ -1,16 +1,17 @@
-import { Request, Response } from 'express';
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
-import { AppDataSource } from '../config/data-source';
-import { User, UserRole } from '../entities/User';
-import { body, validationResult } from 'express-validator';
+import { Request, Response } from "express";
+import bcrypt from "bcrypt";
+import jwt, { SignOptions } from "jsonwebtoken";
+import type { StringValue } from "ms";
+import { AppDataSource } from "../config/data-source";
+import { User, UserRole } from "../entities/User";
+import { body, validationResult } from "express-validator";
 
 export const register = [
-  body('email').isEmail().normalizeEmail(),
-  body('password').isLength({ min: 6 }),
-  body('firstName').trim().notEmpty(),
-  body('lastName').trim().notEmpty(),
-  body('role').isIn(['student', 'lecturer', 'admin']).optional(),
+  body("email").isEmail().normalizeEmail(),
+  body("password").isLength({ min: 6 }),
+  body("firstName").trim().notEmpty(),
+  body("lastName").trim().notEmpty(),
+  body("role").isIn(["student", "lecturer", "admin"]).optional(),
   async (req: Request, res: Response): Promise<void> => {
     try {
       const errors = validationResult(req);
@@ -29,7 +30,7 @@ export const register = [
       });
 
       if (existingUser) {
-        res.status(400).json({ message: 'User already exists' });
+        res.status(400).json({ message: "User already exists" });
         return;
       }
 
@@ -41,20 +42,22 @@ export const register = [
         firstName,
         lastName,
         role: role || UserRole.STUDENT,
-        studentId: role === 'student' ? studentId : null,
-        staffId: role === 'lecturer' || role === 'admin' ? staffId : null,
+        studentId: role === "student" ? studentId : null,
+        staffId: role === "lecturer" || role === "admin" ? staffId : null,
       });
 
       await userRepository.save(user);
 
-      const token = jwt.sign(
-        { userId: user.id },
-        process.env.JWT_SECRET || 'secret',
-        { expiresIn: process.env.JWT_EXPIRES_IN || '7d' }
-      );
+      const jwtSecret = process.env.JWT_SECRET || "secret";
+      const jwtExpiry: StringValue = (process.env.JWT_EXPIRES_IN ||
+        "7d") as StringValue;
+
+      const token = jwt.sign({ userId: user.id }, jwtSecret, {
+        expiresIn: jwtExpiry,
+      });
 
       res.status(201).json({
-        message: 'User created successfully',
+        message: "User created successfully",
         token,
         user: {
           id: user.id,
@@ -65,15 +68,15 @@ export const register = [
         },
       });
     } catch (error) {
-      console.error('Registration error:', error);
-      res.status(500).json({ message: 'Internal server error' });
+      console.error("Registration error:", error);
+      res.status(500).json({ message: "Internal server error" });
     }
   },
 ];
 
 export const login = [
-  body('email').isEmail().normalizeEmail(),
-  body('password').notEmpty(),
+  body("email").isEmail().normalizeEmail(),
+  body("password").notEmpty(),
   async (req: Request, res: Response): Promise<void> => {
     try {
       const errors = validationResult(req);
@@ -88,25 +91,27 @@ export const login = [
       const user = await userRepository.findOne({ where: { email } });
 
       if (!user || !user.isActive) {
-        res.status(401).json({ message: 'Invalid credentials' });
+        res.status(401).json({ message: "Invalid credentials" });
         return;
       }
 
       const isValidPassword = await bcrypt.compare(password, user.passwordHash);
 
       if (!isValidPassword) {
-        res.status(401).json({ message: 'Invalid credentials' });
+        res.status(401).json({ message: "Invalid credentials" });
         return;
       }
 
-      const token = jwt.sign(
-        { userId: user.id },
-        process.env.JWT_SECRET || 'secret',
-        { expiresIn: process.env.JWT_EXPIRES_IN || '7d' }
-      );
+      const jwtSecret = process.env.JWT_SECRET || "secret";
+      const jwtExpiry: StringValue = (process.env.JWT_EXPIRES_IN ||
+        "7d") as StringValue;
+
+      const token = jwt.sign({ userId: user.id }, jwtSecret, {
+        expiresIn: jwtExpiry,
+      });
 
       res.json({
-        message: 'Login successful',
+        message: "Login successful",
         token,
         user: {
           id: user.id,
@@ -119,8 +124,8 @@ export const login = [
         },
       });
     } catch (error) {
-      console.error('Login error:', error);
-      res.status(500).json({ message: 'Internal server error' });
+      console.error("Login error:", error);
+      res.status(500).json({ message: "Internal server error" });
     }
   },
 ];
@@ -131,7 +136,7 @@ export const getProfile = async (
 ): Promise<void> => {
   try {
     if (!req.user) {
-      res.status(401).json({ message: 'Authentication required' });
+      res.status(401).json({ message: "Authentication required" });
       return;
     }
 
@@ -148,10 +153,7 @@ export const getProfile = async (
       createdAt: req.user.createdAt,
     });
   } catch (error) {
-    console.error('Get profile error:', error);
-    res.status(500).json({ message: 'Internal server error' });
+    console.error("Get profile error:", error);
+    res.status(500).json({ message: "Internal server error" });
   }
 };
-
-
-
