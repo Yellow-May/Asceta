@@ -1,8 +1,10 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 
 const Header = ({ isAccaddRoute }: { isAccaddRoute: boolean }) => {
   const { isAuthenticated, logout } = useAuth();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   if (isAccaddRoute) {
     return (
@@ -53,10 +55,13 @@ const Header = ({ isAccaddRoute }: { isAccaddRoute: boolean }) => {
         <div className="container mx-auto px-4">
           <div className="flex flex-wrap justify-between items-center text-sm">
             <div className="flex gap-4">
-              <Link to="/" className="hover:underline">
+              <Link to="/" className="hover:underlin">
                 ASCETA Home
               </Link>
-              <Link to="/news" className="hover:underline">
+              <Link
+                to="/news"
+                className="hover:underline hidden md:inline-block"
+              >
                 ASCETA News
               </Link>
               <Link to="/contact" className="hover:underline">
@@ -103,7 +108,7 @@ const Header = ({ isAccaddRoute }: { isAccaddRoute: boolean }) => {
                   );
                 }}
               />
-              <div>
+              <div className="hidden md:block">
                 <h1 className="text-xl font-bold text-asceta-blue">
                   ABIA STATE COLLEGE OF EDUCATION (TECHNICAL) AROCHUKWU
                 </h1>
@@ -129,8 +134,63 @@ const Header = ({ isAccaddRoute }: { isAccaddRoute: boolean }) => {
                 Events
               </Link>
             </nav>
-            <button className="md:hidden">☰</button>
+            <button
+              className="md:hidden text-asceta-blue text-2xl focus:outline-none"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label="Toggle mobile menu"
+            >
+              {isMobileMenuOpen ? "✕" : "☰"}
+            </button>
           </div>
+          {/* Mobile Menu */}
+          {isMobileMenuOpen && (
+            <nav className="md:hidden mt-4 pb-4 border-t border-gray-200">
+              <div className="flex flex-col gap-4 pt-4">
+                <Link
+                  to="/about"
+                  className="text-asceta-blue hover:underline"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  About
+                </Link>
+                <Link
+                  to="/admission"
+                  className="text-asceta-blue hover:underline"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Admission
+                </Link>
+                <Link
+                  to="/academics"
+                  className="text-asceta-blue hover:underline"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Academics
+                </Link>
+                <Link
+                  to="/leadership"
+                  className="text-asceta-blue hover:underline"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Leadership
+                </Link>
+                <Link
+                  to="/news"
+                  className="text-asceta-blue hover:underline"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  News
+                </Link>
+                <Link
+                  to="/events"
+                  className="text-asceta-blue hover:underline"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Events
+                </Link>
+              </div>
+            </nav>
+          )}
         </div>
       </header>
     </>
