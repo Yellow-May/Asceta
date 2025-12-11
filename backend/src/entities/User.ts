@@ -51,6 +51,15 @@ export class User {
   @Column({ nullable: true })
   department: string;
 
+  @Column({ nullable: true })
+  jambRegNo: string;
+
+  @Column({ nullable: true })
+  waecRegNo: string;
+
+  @Column({ nullable: true })
+  waecExamDate: Date;
+
   @Column({ default: true })
   isActive: boolean;
 

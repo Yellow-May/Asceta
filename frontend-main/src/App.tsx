@@ -7,6 +7,7 @@ import Layout from "./components/Layout";
 import Home from "./pages/public/Home";
 import About from "./pages/public/About";
 import Admission from "./pages/public/Admission";
+import AdmissionApply from "./pages/public/AdmissionApply";
 import Academics from "./pages/public/Academics";
 import NewsList from "./pages/public/NewsList";
 import NewsDetail from "./pages/public/NewsDetail";
@@ -35,6 +36,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/admission" element={<Admission />} />
+            <Route path="/admission/apply" element={<AdmissionApply />} />
             <Route path="/academics" element={<Academics />} />
             <Route path="/news" element={<NewsList />} />
             <Route path="/news/:id" element={<NewsDetail />} />

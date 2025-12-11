@@ -8,6 +8,7 @@ import newsRoutes from './routes/news.routes';
 import eventsRoutes from './routes/events.routes';
 import pagesRoutes from './routes/pages.routes';
 import accaddRoutes from './routes/accadd.routes';
+import admissionRoutes from './routes/admission.routes';
 
 dotenv.config();
 
@@ -33,6 +34,7 @@ app.use('/api/news', newsRoutes);
 app.use('/api/events', eventsRoutes);
 app.use('/api/pages', pagesRoutes);
 app.use('/api/accadd', accaddRoutes);
+app.use('/api/admission', admissionRoutes);
 
 // Health check with database status
 app.get('/api/health', (req, res) => {

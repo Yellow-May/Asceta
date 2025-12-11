@@ -315,12 +315,27 @@ const Landing = () => {
               </div>
               <div className="bg-gray-50 p-6 rounded-lg shadow-md border border-red-500">
                 <p className="text-gray-800 text-center font-semibold">
-                  First government-backed animation diploma program in Nigeria.
+                   ⁠Designed in partnership with Toda Studios, one of Africa’s leading animation producers
                 </p>
               </div>
               <div className="bg-gray-50 p-6 rounded-lg shadow-md border border-red-500">
                 <p className="text-gray-800 text-center font-semibold">
-                  First government-backed animation diploma program in Nigeria.
+                  Industry-standard equipment, labs, and studio-based training.
+                </p>
+              </div>
+              <div className="bg-gray-50 p-6 rounded-lg shadow-md border border-red-500">
+                <p className="text-gray-800 text-center font-semibold">
+                  ⁠Hands-on learning: students work on real animated productions throughout the program.
+                </p>
+              </div>
+              <div className="bg-gray-50 p-6 rounded-lg shadow-md border border-red-500">
+                <p className="text-gray-800 text-center font-semibold">
+                  Multiple specialization tracks - writing, 2D animation, editing, sound, music, and more.
+                </p>
+              </div>
+              <div className="bg-gray-50 p-6 rounded-lg shadow-md border border-red-500">
+                <p className="text-gray-800 text-center font-semibold">
+                  Built to make students employable, entrepreneurial, and ready for global opportunities.
                 </p>
               </div>
             </div>

@@ -110,7 +110,10 @@ const Header = ({ isAccaddRoute }: { isAccaddRoute: boolean }) => {
               />
               <div className="hidden md:block">
                 <h1 className="text-xl font-bold text-asceta-blue">
-                  ABIA STATE COLLEGE OF EDUCATION (TECHNICAL) AROCHUKWU
+                  ABIA STATE COLLEGE OF EDUCATION
+                  <span className="block text-sm">
+                    (TECHNICAL) AROCHUKWU
+                  </span>
                 </h1>
               </div>
             </div>

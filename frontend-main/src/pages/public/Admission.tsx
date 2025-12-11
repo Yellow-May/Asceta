@@ -35,6 +35,14 @@ const Admission = () => {
           <li>Pay the application fee</li>
           <li>Submit your application</li>
         </ol>
+        <div className="mt-8 mb-8 text-center">
+          <a
+            href="/admission/apply"
+            className="inline-block px-8 py-3 bg-asceta-blue text-white font-semibold rounded-lg shadow-lg hover:bg-blue-700 transition-colors duration-200"
+          >
+            Apply Now
+          </a>
+        </div>
         <div className="mt-8 p-4 bg-asceta-blue text-white rounded-lg">
           <p className="font-semibold">For more information, contact:</p>
           <p>Admissions Office</p>

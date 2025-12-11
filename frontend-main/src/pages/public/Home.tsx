@@ -142,37 +142,61 @@ const Home = () => {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             <Link
               to="/admission"
-              className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow text-center"
+              className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow text-center overflow-hidden"
             >
-              <div className="text-4xl mb-4">🎓</div>
-              <h3 className="text-lg font-bold text-asceta-blue">Admission</h3>
-              <p className="text-sm text-gray-600 mt-2">Apply for admission</p>
+              <img
+                src="/images/admissions.jpeg"
+                alt="Admission"
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-6">
+                <h3 className="text-lg font-bold text-asceta-blue">Admission</h3>
+                <p className="text-sm text-gray-600 mt-2">Apply for admission</p>
+              </div>
             </Link>
             <Link
               to="/academics"
-              className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow text-center"
+              className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow text-center overflow-hidden"
             >
-              <div className="text-4xl mb-4">📚</div>
-              <h3 className="text-lg font-bold text-asceta-blue">Academics</h3>
-              <p className="text-sm text-gray-600 mt-2">Academic programs</p>
+              <img
+                src="/images/academics.jpeg"
+                alt="Academics"
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-6">
+                <h3 className="text-lg font-bold text-asceta-blue">Academics</h3>
+                <p className="text-sm text-gray-600 mt-2">Academic programs</p>
+              </div>
             </Link>
             <Link
               to="/student/login"
-              className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow text-center"
+              className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow text-center overflow-hidden"
             >
-              <div className="text-4xl mb-4">👤</div>
-              <h3 className="text-lg font-bold text-asceta-blue">
-                Student Portal
-              </h3>
-              <p className="text-sm text-gray-600 mt-2">Access your portal</p>
+              <img
+                src="/images/student_portal.jpeg"
+                alt="Student Portal"
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-6">
+                <h3 className="text-lg font-bold text-asceta-blue">
+                  Student Portal
+                </h3>
+                <p className="text-sm text-gray-600 mt-2">Access your portal</p>
+              </div>
             </Link>
             <Link
               to="/events"
-              className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow text-center"
+              className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow text-center overflow-hidden"
             >
-              <div className="text-4xl mb-4">📅</div>
-              <h3 className="text-lg font-bold text-asceta-blue">Events</h3>
-              <p className="text-sm text-gray-600 mt-2">View upcoming events</p>
+              <img
+                src="/images/events.jpeg"
+                alt="Events"
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-6">
+                <h3 className="text-lg font-bold text-asceta-blue">Events</h3>
+                <p className="text-sm text-gray-600 mt-2">View upcoming events</p>
+              </div>
             </Link>
           </div>
         </div>
@@ -180,11 +204,11 @@ const Home = () => {
 
       {/* Important!! */}
       <section className="relative overflow-hidden bg-black">
-        <Link to="/accadd" className="w-full h-full">
+        <Link to="/accadd" className="block w-full">
           <img
-            src={"/images/accadd.jpg"}
-            alt={`ACCASS`}
-            className={`w-full h-full max-h-[250px] object-contain`}
+            src={"/images/accad_main.png"}
+            alt={`ACCADD`}
+            className="w-full h-auto object-cover"
           />
         </Link>
       </section>
