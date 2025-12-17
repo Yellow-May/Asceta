@@ -1,4 +1,4 @@
-import { Schema, model, Document } from 'mongoose';
+import { Schema, model, Document } from "mongoose";
 
 export interface IPage extends Document {
   id: string;
@@ -18,13 +18,11 @@ const PageSchema = new Schema<IPage>(
       unique: true,
       lowercase: true,
       trim: true,
-      index: true,
     },
     title: {
       type: String,
       required: true,
       trim: true,
-      index: 'text',
     },
     content: {
       type: String,
@@ -48,8 +46,7 @@ const PageSchema = new Schema<IPage>(
 );
 
 // Create indexes
-PageSchema.index({ slug: 1 }, { unique: true });
-PageSchema.index({ title: 'text' });
+// Note: slug index is already created by unique: true in schema definition
+PageSchema.index({ title: "text" });
 
-export const Page = model<IPage>('Page', PageSchema);
-
+export const Page = model<IPage>("Page", PageSchema);

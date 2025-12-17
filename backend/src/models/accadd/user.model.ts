@@ -1,4 +1,4 @@
-import { Schema, model, Document } from 'mongoose';
+import { Schema, model, Document } from "mongoose";
 
 export interface IAccaddUser extends Document {
   email: string;
@@ -17,7 +17,6 @@ const AccaddUserSchema = new Schema<IAccaddUser>(
       unique: true,
       lowercase: true,
       trim: true,
-      index: true,
     },
     fullName: {
       type: String,
@@ -28,7 +27,6 @@ const AccaddUserSchema = new Schema<IAccaddUser>(
       type: String,
       required: true,
       unique: true,
-      index: true,
     },
     isEmailVerified: {
       type: Boolean,
@@ -41,9 +39,11 @@ const AccaddUserSchema = new Schema<IAccaddUser>(
 );
 
 // Create indexes for faster queries
-AccaddUserSchema.index({ email: 1 }, { unique: true });
-AccaddUserSchema.index({ supabaseUserId: 1 }, { unique: true });
+// Note: email and supabaseUserId indexes are already created by unique: true in schema definitions
 
 // Export model with explicit collection name 'accadd-users'
-export const AccaddUser = model<IAccaddUser>('AccaddUser', AccaddUserSchema, 'accadd-users');
-
+export const AccaddUser = model<IAccaddUser>(
+  "AccaddUser",
+  AccaddUserSchema,
+  "accadd-users"
+);

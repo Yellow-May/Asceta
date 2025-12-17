@@ -1,9 +1,9 @@
-import { Schema, model, Document } from 'mongoose';
+import { Schema, model, Document } from "mongoose";
 
 export interface IAccaddPayment extends Document {
   email: string;
   supabaseUserId: string;
-  status: 'pending' | 'completed' | 'failed';
+  status: "pending" | "completed" | "failed";
   amount?: number;
   paymentData?: Record<string, any>;
   createdAt: Date;
@@ -17,17 +17,15 @@ const AccaddPaymentSchema = new Schema<IAccaddPayment>(
       required: true,
       lowercase: true,
       trim: true,
-      index: true,
     },
     supabaseUserId: {
       type: String,
       required: true,
-      index: true,
     },
     status: {
       type: String,
-      enum: ['pending', 'completed', 'failed'],
-      default: 'pending',
+      enum: ["pending", "completed", "failed"],
+      default: "pending",
       required: true,
     },
     amount: {
@@ -53,7 +51,6 @@ AccaddPaymentSchema.index({ status: 1 });
 AccaddPaymentSchema.index({ createdAt: -1 });
 
 export const AccaddPayment = model<IAccaddPayment>(
-  'AccaddPayment',
+  "AccaddPayment",
   AccaddPaymentSchema
 );
-

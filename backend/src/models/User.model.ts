@@ -1,9 +1,9 @@
-import { Schema, model, Document } from 'mongoose';
+import { Schema, model, Document } from "mongoose";
 
 export enum UserRole {
-  STUDENT = 'student',
-  LECTURER = 'lecturer',
-  ADMIN = 'admin',
+  STUDENT = "student",
+  LECTURER = "lecturer",
+  ADMIN = "admin",
 }
 
 export interface IUser extends Document {
@@ -100,10 +100,9 @@ const UserSchema = new Schema<IUser>(
 );
 
 // Create indexes
-UserSchema.index({ email: 1 }, { unique: true });
+// Note: email index is already created by unique: true in schema definition
 UserSchema.index({ studentId: 1 });
 UserSchema.index({ staffId: 1 });
 UserSchema.index({ role: 1 });
 
-export const User = model<IUser>('User', UserSchema);
-
+export const User = model<IUser>("User", UserSchema);

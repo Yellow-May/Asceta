@@ -1,4 +1,4 @@
-import { Schema, model, Document } from 'mongoose';
+import { Schema, model, Document } from "mongoose";
 
 export interface IEvent extends Document {
   id: string;
@@ -24,7 +24,6 @@ const EventSchema = new Schema<IEvent>(
       type: String,
       required: true,
       trim: true,
-      index: 'text',
     },
     description: {
       type: String,
@@ -33,7 +32,6 @@ const EventSchema = new Schema<IEvent>(
     eventDate: {
       type: Date,
       required: true,
-      index: true,
     },
     location: {
       type: String,
@@ -46,7 +44,6 @@ const EventSchema = new Schema<IEvent>(
     createdById: {
       type: String,
       required: true,
-      index: true,
     },
   },
   {
@@ -64,7 +61,6 @@ const EventSchema = new Schema<IEvent>(
 // Create indexes
 EventSchema.index({ createdById: 1 });
 EventSchema.index({ eventDate: 1 });
-EventSchema.index({ title: 'text' });
+EventSchema.index({ title: "text" });
 
-export const Event = model<IEvent>('Event', EventSchema);
-
+export const Event = model<IEvent>("Event", EventSchema);

@@ -1,8 +1,8 @@
-import { Schema, model, Document } from 'mongoose';
+import { Schema, model, Document } from "mongoose";
 
 export enum NewsStatus {
-  DRAFT = 'draft',
-  PUBLISHED = 'published',
+  DRAFT = "draft",
+  PUBLISHED = "published",
 }
 
 export interface INews extends Document {
@@ -30,7 +30,6 @@ const NewsSchema = new Schema<INews>(
       type: String,
       required: true,
       trim: true,
-      index: 'text',
     },
     content: {
       type: String,
@@ -49,7 +48,6 @@ const NewsSchema = new Schema<INews>(
       enum: Object.values(NewsStatus),
       default: NewsStatus.DRAFT,
       required: true,
-      index: true,
     },
     publishDate: {
       type: Date,
@@ -58,7 +56,6 @@ const NewsSchema = new Schema<INews>(
     authorId: {
       type: String,
       required: true,
-      index: true,
     },
   },
   {
@@ -77,7 +74,6 @@ const NewsSchema = new Schema<INews>(
 NewsSchema.index({ authorId: 1 });
 NewsSchema.index({ status: 1 });
 NewsSchema.index({ createdAt: -1 });
-NewsSchema.index({ title: 'text' });
+NewsSchema.index({ title: "text" });
 
-export const News = model<INews>('News', NewsSchema);
-
+export const News = model<INews>("News", NewsSchema);
