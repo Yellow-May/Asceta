@@ -315,7 +315,8 @@ const Landing = () => {
               </div>
               <div className="bg-gray-50 p-6 rounded-lg shadow-md border border-red-500">
                 <p className="text-gray-800 text-center font-semibold">
-                   ⁠Designed in partnership with Toda Studios, one of Africa’s leading animation producers
+                  ⁠Designed in partnership with Toda Studios, one of Africa’s
+                  leading animation producers
                 </p>
               </div>
               <div className="bg-gray-50 p-6 rounded-lg shadow-md border border-red-500">
@@ -325,17 +326,20 @@ const Landing = () => {
               </div>
               <div className="bg-gray-50 p-6 rounded-lg shadow-md border border-red-500">
                 <p className="text-gray-800 text-center font-semibold">
-                  ⁠Hands-on learning: students work on real animated productions throughout the program.
+                  ⁠Hands-on learning: students work on real animated productions
+                  throughout the program.
                 </p>
               </div>
               <div className="bg-gray-50 p-6 rounded-lg shadow-md border border-red-500">
                 <p className="text-gray-800 text-center font-semibold">
-                  Multiple specialization tracks - writing, 2D animation, editing, sound, music, and more.
+                  Multiple specialization tracks - writing, 2D animation,
+                  editing, sound, music, and more.
                 </p>
               </div>
               <div className="bg-gray-50 p-6 rounded-lg shadow-md border border-red-500">
                 <p className="text-gray-800 text-center font-semibold">
-                  Built to make students employable, entrepreneurial, and ready for global opportunities.
+                  Built to make students employable, entrepreneurial, and ready
+                  for global opportunities.
                 </p>
               </div>
             </div>
@@ -476,15 +480,15 @@ const Landing = () => {
                   <div className="w-16 h-16 bg-asceta-blue text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
                     2
                   </div>
-                  <p className="text-gray-700">Payment for application form.</p>
+                  <p className="text-gray-700">
+                    Fill out the application form.
+                  </p>
                 </div>
                 <div className="text-center">
                   <div className="w-16 h-16 bg-asceta-blue text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
                     3
                   </div>
-                  <p className="text-gray-700">
-                    Fill out the application form.
-                  </p>
+                  <p className="text-gray-700">Payment for admission.</p>
                 </div>
                 <div className="text-center">
                   <div className="w-16 h-16 bg-asceta-blue text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
