@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { Router, RequestHandler } from "express";
 import { register, getAuthStatus } from "../controllers/accadd/auth.controller";
 import {
   initiatePayment,
@@ -28,7 +28,7 @@ router.get("/payment/status/:email", getPaymentStatus);
 // Application routes
 router.post(
   "/application/submit",
-  upload.single("passportPhoto"),
+  upload.single("passportPhoto") as unknown as RequestHandler,
   submitApplication
 );
 router.get("/application/:supabaseUserId", getApplication);

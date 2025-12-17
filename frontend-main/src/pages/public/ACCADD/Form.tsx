@@ -31,7 +31,6 @@ const Form = () => {
   const [hasExistingApplication, setHasExistingApplication] = useState(false);
   const [passportPhoto, setPassportPhoto] = useState<File | null>(null);
   const [passportPreview, setPassportPreview] = useState<string>("");
-  const [supabaseUserId, setSupabaseUserId] = useState<string>("");
   const [formData, setFormData] = useState<FormData>({
     surname: "",
     fullName: "",
@@ -62,8 +61,6 @@ const Form = () => {
       } else {
         // Ensure user exists in MongoDB (sync check)
         await ensureUserExists();
-
-        setSupabaseUserId(session.user.id);
 
         // Try to fetch existing application first
         try {
