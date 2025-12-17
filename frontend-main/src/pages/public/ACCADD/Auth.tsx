@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../../../config/supabase";
 import api from "../../../services/api";
+import { ensureUserExists } from "../../../utils/accaddAuth";
 
 const Auth = () => {
   const [isSignUp, setIsSignUp] = useState(true);
@@ -101,6 +102,9 @@ const Auth = () => {
         if (signInError) throw signInError;
 
         if (data.user) {
+          // Ensure user exists in MongoDB (sync check)
+          await ensureUserExists();
+
           setSuccess("Sign in successful! Redirecting...");
           setTimeout(() => navigate("/accadd/form"), 1500);
         }

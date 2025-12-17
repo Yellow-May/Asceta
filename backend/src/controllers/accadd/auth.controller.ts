@@ -1,6 +1,6 @@
-import { Request, Response } from 'express';
-import { AccaddUser } from '../../models/accadd/user.model';
-import { getMongoDBStatus } from '../../config/mongodb';
+import { Request, Response } from "express";
+import { AccaddUser } from "../../models/accadd/user.model";
+import { getMongoDBStatus } from "../../config/mongodb";
 
 /**
  * Register a new ACCADD user after Supabase authentication
@@ -12,20 +12,23 @@ export const register = async (req: Request, res: Response) => {
     const mongoStatus = getMongoDBStatus();
     if (!mongoStatus.connected) {
       return res.status(503).json({
-        error: 'Database unavailable',
-        message: 'MongoDB is not connected. Please try again later.',
+        error: "Database unavailable",
+        message: "MongoDB is not connected. Please try again later.",
       });
     }
 
     const { supabaseUserId, email, fullName } = req.body;
 
     // Validate required fields
-    if (!supabaseUserId || !email || !fullName) {
+    if (!supabaseUserId || !email) {
       return res.status(400).json({
-        error: 'Missing required fields',
-        message: 'supabaseUserId, email, and fullName are required.',
+        error: "Missing required fields",
+        message: "supabaseUserId and email are required.",
       });
     }
+
+    // Use email username as fallback if fullName is not provided
+    const userFullName = fullName || email.split("@")[0] || "User";
 
     // Check if user already exists
     const existingUser = await AccaddUser.findOne({
@@ -34,7 +37,7 @@ export const register = async (req: Request, res: Response) => {
 
     if (existingUser) {
       return res.status(200).json({
-        message: 'User already registered',
+        message: "User already registered",
         user: {
           id: existingUser._id,
           email: existingUser.email,
@@ -49,7 +52,7 @@ export const register = async (req: Request, res: Response) => {
     // Create new user
     const newUser = new AccaddUser({
       email: email.toLowerCase(),
-      fullName,
+      fullName: userFullName,
       supabaseUserId,
       isEmailVerified: true, // Supabase handles email verification
     });
@@ -57,7 +60,7 @@ export const register = async (req: Request, res: Response) => {
     await newUser.save();
 
     return res.status(201).json({
-      message: 'User registered successfully',
+      message: "User registered successfully",
       user: {
         id: newUser._id,
         email: newUser.email,
@@ -68,10 +71,10 @@ export const register = async (req: Request, res: Response) => {
       },
     });
   } catch (error) {
-    console.error('Error in register controller:', error);
+    console.error("Error in register controller:", error);
     return res.status(500).json({
-      error: 'Internal server error',
-      message: 'An error occurred while registering the user.',
+      error: "Internal server error",
+      message: "An error occurred while registering the user.",
     });
   }
 };
@@ -86,8 +89,8 @@ export const getAuthStatus = async (req: Request, res: Response) => {
     const mongoStatus = getMongoDBStatus();
     if (!mongoStatus.connected) {
       return res.status(503).json({
-        error: 'Database unavailable',
-        message: 'MongoDB is not connected. Please try again later.',
+        error: "Database unavailable",
+        message: "MongoDB is not connected. Please try again later.",
       });
     }
 
@@ -95,8 +98,8 @@ export const getAuthStatus = async (req: Request, res: Response) => {
 
     if (!email) {
       return res.status(400).json({
-        error: 'Missing required parameter',
-        message: 'Email is required.',
+        error: "Missing required parameter",
+        message: "Email is required.",
       });
     }
 
@@ -104,8 +107,8 @@ export const getAuthStatus = async (req: Request, res: Response) => {
 
     if (!user) {
       return res.status(404).json({
-        error: 'User not found',
-        message: 'No user found with this email.',
+        error: "User not found",
+        message: "No user found with this email.",
       });
     }
 
@@ -121,11 +124,10 @@ export const getAuthStatus = async (req: Request, res: Response) => {
       },
     });
   } catch (error) {
-    console.error('Error in getAuthStatus controller:', error);
+    console.error("Error in getAuthStatus controller:", error);
     return res.status(500).json({
-      error: 'Internal server error',
-      message: 'An error occurred while retrieving user status.',
+      error: "Internal server error",
+      message: "An error occurred while retrieving user status.",
     });
   }
 };
-

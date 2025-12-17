@@ -1,17 +1,24 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext';
-import ProtectedRoute from './components/ProtectedRoute';
-import Sidebar from './components/Sidebar';
-import Navbar from './components/Navbar';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
+import ProtectedRoute from "./components/ProtectedRoute";
+import Sidebar from "./components/Sidebar";
+import Navbar from "./components/Navbar";
 
 // Pages
-import Login from './pages/Login';
-import Dashboard from './pages/Dashboard';
-import NewsList from './pages/news/NewsList';
-import NewsForm from './pages/news/NewsForm';
-import EventsList from './pages/events/EventsList';
-import EventsForm from './pages/events/EventsForm';
-import Profile from './pages/Profile';
+import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
+import NewsList from "./pages/news/NewsList";
+import NewsForm from "./pages/news/NewsForm";
+import EventsList from "./pages/events/EventsList";
+import EventsForm from "./pages/events/EventsForm";
+import AccaddList from "./pages/accadd/AccaddList";
+import AccaddDetail from "./pages/accadd/AccaddDetail";
+import Profile from "./pages/Profile";
 
 function App() {
   return (
@@ -35,9 +42,20 @@ function App() {
                         <Route path="/news/:id/edit" element={<NewsForm />} />
                         <Route path="/events" element={<EventsList />} />
                         <Route path="/events/new" element={<EventsForm />} />
-                        <Route path="/events/:id/edit" element={<EventsForm />} />
+                        <Route
+                          path="/events/:id/edit"
+                          element={<EventsForm />}
+                        />
+                        <Route path="/accadd" element={<AccaddList />} />
+                        <Route
+                          path="/accadd/:supabaseUserId"
+                          element={<AccaddDetail />}
+                        />
                         <Route path="/profile" element={<Profile />} />
-                        <Route path="/" element={<Navigate to="/dashboard" replace />} />
+                        <Route
+                          path="/"
+                          element={<Navigate to="/dashboard" replace />}
+                        />
                       </Routes>
                     </div>
                   </div>
@@ -52,6 +70,3 @@ function App() {
 }
 
 export default App;
-
-
-

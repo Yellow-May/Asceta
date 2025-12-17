@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../../../config/supabase";
 import api from "../../../services/api";
+import { ensureUserExists } from "../../../utils/accaddAuth";
 
 const Payment = () => {
   const [loading, setLoading] = useState(false);
@@ -18,6 +19,9 @@ const Payment = () => {
       if (!session) {
         navigate("/accadd/auth");
       } else {
+        // Ensure user exists in MongoDB (sync check)
+        await ensureUserExists();
+
         setUserEmail(session.user.email || "");
       }
     };

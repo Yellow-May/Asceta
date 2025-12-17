@@ -1,11 +1,16 @@
-import { Link, useLocation } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import { Link, useLocation } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const Sidebar = () => {
   const location = useLocation();
   const { user } = useAuth();
 
-  const isActive = (path: string) => location.pathname === path;
+  const isActive = (path: string) => {
+    if (path === "/accadd") {
+      return location.pathname.startsWith("/accadd");
+    }
+    return location.pathname === path;
+  };
 
   return (
     <div className="w-64 bg-gray-800 text-white min-h-screen">
@@ -20,7 +25,9 @@ const Sidebar = () => {
         <Link
           to="/dashboard"
           className={`block px-6 py-3 hover:bg-gray-700 ${
-            isActive('/dashboard') ? 'bg-gray-700 border-l-4 border-blue-500' : ''
+            isActive("/dashboard")
+              ? "bg-gray-700 border-l-4 border-blue-500"
+              : ""
           }`}
         >
           Dashboard
@@ -28,7 +35,7 @@ const Sidebar = () => {
         <Link
           to="/news"
           className={`block px-6 py-3 hover:bg-gray-700 ${
-            isActive('/news') ? 'bg-gray-700 border-l-4 border-blue-500' : ''
+            isActive("/news") ? "bg-gray-700 border-l-4 border-blue-500" : ""
           }`}
         >
           News
@@ -36,25 +43,39 @@ const Sidebar = () => {
         <Link
           to="/events"
           className={`block px-6 py-3 hover:bg-gray-700 ${
-            isActive('/events') ? 'bg-gray-700 border-l-4 border-blue-500' : ''
+            isActive("/events") ? "bg-gray-700 border-l-4 border-blue-500" : ""
           }`}
         >
           Events
         </Link>
-        {user?.role === 'admin' && (
-          <Link
-            to="/pages"
-            className={`block px-6 py-3 hover:bg-gray-700 ${
-              isActive('/pages') ? 'bg-gray-700 border-l-4 border-blue-500' : ''
-            }`}
-          >
-            Pages
-          </Link>
+        {user?.role === "admin" && (
+          <>
+            <Link
+              to="/accadd"
+              className={`block px-6 py-3 hover:bg-gray-700 ${
+                isActive("/accadd")
+                  ? "bg-gray-700 border-l-4 border-blue-500"
+                  : ""
+              }`}
+            >
+              ACCADD Applications
+            </Link>
+            <Link
+              to="/pages"
+              className={`block px-6 py-3 hover:bg-gray-700 ${
+                isActive("/pages")
+                  ? "bg-gray-700 border-l-4 border-blue-500"
+                  : ""
+              }`}
+            >
+              Pages
+            </Link>
+          </>
         )}
         <Link
           to="/profile"
           className={`block px-6 py-3 hover:bg-gray-700 ${
-            isActive('/profile') ? 'bg-gray-700 border-l-4 border-blue-500' : ''
+            isActive("/profile") ? "bg-gray-700 border-l-4 border-blue-500" : ""
           }`}
         >
           Profile
@@ -65,4 +86,3 @@ const Sidebar = () => {
 };
 
 export default Sidebar;
-
