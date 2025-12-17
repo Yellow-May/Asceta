@@ -1,22 +1,24 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { supabase } from '../../../config/supabase';
-import api from '../../../services/api';
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { supabase } from "../../../config/supabase";
+import api from "../../../services/api";
 
 const Payment = () => {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
-  const [userEmail, setUserEmail] = useState('');
+  const [error, setError] = useState("");
+  const [userEmail, setUserEmail] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
     // Check if user is authenticated
     const checkAuth = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
       if (!session) {
-        navigate('/accadd/auth');
+        navigate("/accadd/auth");
       } else {
-        setUserEmail(session.user.email || '');
+        setUserEmail(session.user.email || "");
       }
     };
     checkAuth();
@@ -24,27 +26,29 @@ const Payment = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
+    setError("");
     setLoading(true);
 
     try {
       // Get current user
-      const { data: { session } } = await supabase.auth.getSession();
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
       if (!session) {
-        throw new Error('Not authenticated');
+        throw new Error("Not authenticated");
       }
 
       // Create payment record in MongoDB (non-functional, just tracking)
-      await api.post('/accadd/payment/initiate', {
+      await api.post("/accadd/payment/initiate", {
         email: session.user.email,
         supabaseUserId: session.user.id,
-        status: 'pending',
+        status: "pending",
       });
 
-      // Redirect to form page after "payment"
-      setTimeout(() => navigate('/accadd/form'), 1500);
+      // Payment completed - redirect to landing page
+      setTimeout(() => navigate("/accadd"), 1500);
     } catch (err: any) {
-      setError(err.message || 'An error occurred. Please try again.');
+      setError(err.message || "An error occurred. Please try again.");
       setLoading(false);
     }
   };
@@ -216,7 +220,7 @@ const Payment = () => {
             <div className="flex gap-4">
               <button
                 type="button"
-                onClick={() => navigate('/accadd/auth')}
+                onClick={() => navigate("/accadd/form")}
                 className="flex-1 py-3 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-asceta-blue"
               >
                 Back
@@ -225,10 +229,10 @@ const Payment = () => {
                 type="submit"
                 disabled={loading}
                 className={`flex-1 py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-asceta-blue hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-asceta-blue ${
-                  loading ? 'opacity-50 cursor-not-allowed' : ''
+                  loading ? "opacity-50 cursor-not-allowed" : ""
                 }`}
               >
-                {loading ? 'Processing...' : 'Proceed to Application Form'}
+                {loading ? "Processing..." : "Complete Payment"}
               </button>
             </div>
           </form>
@@ -236,7 +240,7 @@ const Payment = () => {
 
         <div className="mt-6 text-center">
           <p className="text-sm text-gray-600">
-            Need help?{' '}
+            Need help?{" "}
             <a href="/contact" className="text-asceta-blue hover:underline">
               Contact Support
             </a>
@@ -248,4 +252,3 @@ const Payment = () => {
 };
 
 export default Payment;
-

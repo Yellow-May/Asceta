@@ -252,7 +252,7 @@ const Landing = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Link
-              to={isAuthenticated ? "/accadd/payment" : "/accadd/auth"}
+              to={isAuthenticated ? "/accadd/form" : "/accadd/auth"}
               className="bg-white text-black px-4 py-2 lg:px-6 lg:py-3 text-xs lg:text-sm transition-all hover:bg-white/80 transition-colors rounded-full font-semibold"
             >
               {isAuthenticated ? "Continue Application" : "Apply Now"} &gt;
@@ -508,7 +508,7 @@ const Landing = () => {
 
             <div className="text-center">
               <Link
-                to={isAuthenticated ? "/accadd/payment" : "/accadd/auth"}
+                to={isAuthenticated ? "/accadd/form" : "/accadd/auth"}
                 className="inline-block bg-asceta-blue text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-blue-700 transition-colors shadow-lg"
               >
                 {isAuthenticated ? "Continue Application" : "Apply Now"}
@@ -594,7 +594,7 @@ const Landing = () => {
             become a world-class digital creator.
           </p>
           <Link
-            to={isAuthenticated ? "/accadd/payment" : "/accadd/auth"}
+            to={isAuthenticated ? "/accadd/form" : "/accadd/auth"}
             className="inline-block bg-white text-asceta-blue px-8 py-4 rounded-lg font-bold text-lg hover:bg-gray-100 transition-colors shadow-lg"
           >
             {isAuthenticated ? "Continue Application" : "Apply Now"}

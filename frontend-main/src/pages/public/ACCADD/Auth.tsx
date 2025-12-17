@@ -1,24 +1,26 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { supabase } from '../../../config/supabase';
-import api from '../../../services/api';
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { supabase } from "../../../config/supabase";
+import api from "../../../services/api";
 
 const Auth = () => {
   const [isSignUp, setIsSignUp] = useState(true);
-  const [fullName, setFullName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
     // Check if user is already authenticated
     const checkUser = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
       if (session) {
-        navigate('/accadd/payment');
+        navigate("/accadd/form");
       }
     };
     checkUser();
@@ -26,15 +28,15 @@ const Auth = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
-    setSuccess('');
+    setError("");
+    setSuccess("");
     setLoading(true);
 
     try {
       if (isSignUp) {
         // Sign up with email and password
         if (!fullName.trim()) {
-          setError('Full name is required');
+          setError("Full name is required");
           setLoading(false);
           return;
         }
@@ -46,7 +48,7 @@ const Auth = () => {
             data: {
               full_name: fullName,
             },
-            emailRedirectTo: `${window.location.origin}/accadd/payment`,
+            emailRedirectTo: `${window.location.origin}/accadd/form`,
           },
         });
 
@@ -55,59 +57,78 @@ const Auth = () => {
         if (data.user) {
           // Store user data in MongoDB
           try {
-            await api.post('/accadd/auth/register', {
+            await api.post("/accadd/auth/register", {
               supabaseUserId: data.user.id,
               email: data.user.email,
               fullName: fullName,
             });
           } catch (apiError: any) {
-            console.error('Error storing user data in MongoDB:', apiError);
+            console.error("Error storing user data in MongoDB:", apiError);
             // Check if it's a network error
-            if (apiError.code === 'ERR_NETWORK' || apiError.message === 'Network Error' || apiError.message?.includes('Failed to fetch')) {
-              setError('Cannot connect to server. Please make sure the backend server is running.');
+            if (
+              apiError.code === "ERR_NETWORK" ||
+              apiError.message === "Network Error" ||
+              apiError.message?.includes("Failed to fetch")
+            ) {
+              setError(
+                "Cannot connect to server. Please make sure the backend server is running."
+              );
             } else {
               // Continue even if MongoDB fails - don't show error to user
-              console.warn('MongoDB registration failed, but Supabase signup succeeded');
+              console.warn(
+                "MongoDB registration failed, but Supabase signup succeeded"
+              );
             }
           }
 
           setSuccess(
-            'Account created! Please check your email to verify your account.'
+            "Account created! Please check your email to verify your account."
           );
-          
+
           // If email confirmation is disabled in Supabase, redirect immediately
           if (data.session) {
-            setTimeout(() => navigate('/accadd/payment'), 2000);
+            setTimeout(() => navigate("/accadd/form"), 2000);
           }
         }
       } else {
         // Sign in with email and password
-        const { data, error: signInError } = await supabase.auth.signInWithPassword({
-          email,
-          password,
-        });
+        const { data, error: signInError } =
+          await supabase.auth.signInWithPassword({
+            email,
+            password,
+          });
 
         if (signInError) throw signInError;
 
         if (data.user) {
-          setSuccess('Sign in successful! Redirecting...');
-          setTimeout(() => navigate('/accadd/payment'), 1500);
+          setSuccess("Sign in successful! Redirecting...");
+          setTimeout(() => navigate("/accadd/form"), 1500);
         }
       }
     } catch (err: any) {
-      console.error('Auth error:', err);
+      console.error("Auth error:", err);
       // Provide more specific error messages
-      if (err.message?.includes('ERR_NAME_NOT_RESOLVED') || err.message?.includes('Failed to fetch')) {
+      if (
+        err.message?.includes("ERR_NAME_NOT_RESOLVED") ||
+        err.message?.includes("Failed to fetch")
+      ) {
         // Check if it's a Supabase error
-        if (err.message?.includes('supabase.co') || err.code === 'ERR_NAME_NOT_RESOLVED') {
-          setError('Cannot connect to Supabase. Please check your Supabase URL in the .env file. The URL should be in the format: https://xxxxx.supabase.co');
+        if (
+          err.message?.includes("supabase.co") ||
+          err.code === "ERR_NAME_NOT_RESOLVED"
+        ) {
+          setError(
+            "Cannot connect to Supabase. Please check your Supabase URL in the .env file. The URL should be in the format: https://xxxxx.supabase.co"
+          );
         } else {
-          setError('Cannot connect to server. Please make sure the backend server is running at http://localhost:5000');
+          setError(
+            "Cannot connect to server. Please make sure the backend server is running at http://localhost:5000"
+          );
         }
       } else if (err.message) {
         setError(err.message);
       } else {
-        setError('An error occurred. Please try again.');
+        setError("An error occurred. Please try again.");
       }
     } finally {
       setLoading(false);
@@ -119,7 +140,7 @@ const Auth = () => {
       <div className="max-w-md w-full space-y-8">
         <div>
           <h2 className="mt-6 text-center text-3xl font-bold text-gray-900">
-            {isSignUp ? 'Create your account' : 'Sign in to your account'}
+            {isSignUp ? "Create your account" : "Sign in to your account"}
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
             ACCADD Application Portal
@@ -180,12 +201,16 @@ const Auth = () => {
                 id="password"
                 name="password"
                 type="password"
-                autoComplete={isSignUp ? 'new-password' : 'current-password'}
+                autoComplete={isSignUp ? "new-password" : "current-password"}
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-asceta-blue focus:border-asceta-blue"
-                placeholder={isSignUp ? 'Create a password (min. 6 characters)' : 'Enter your password'}
+                placeholder={
+                  isSignUp
+                    ? "Create a password (min. 6 characters)"
+                    : "Enter your password"
+                }
                 minLength={6}
               />
             </div>
@@ -241,14 +266,10 @@ const Auth = () => {
                 type="submit"
                 disabled={loading}
                 className={`w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-asceta-blue hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-asceta-blue ${
-                  loading ? 'opacity-50 cursor-not-allowed' : ''
+                  loading ? "opacity-50 cursor-not-allowed" : ""
                 }`}
               >
-                {loading
-                  ? 'Processing...'
-                  : isSignUp
-                  ? 'Sign Up'
-                  : 'Sign In'}
+                {loading ? "Processing..." : isSignUp ? "Sign Up" : "Sign In"}
               </button>
             </div>
           </form>
@@ -260,7 +281,9 @@ const Auth = () => {
               </div>
               <div className="relative flex justify-center text-sm">
                 <span className="px-2 bg-white text-gray-500">
-                  {isSignUp ? 'Already have an account?' : "Don't have an account?"}
+                  {isSignUp
+                    ? "Already have an account?"
+                    : "Don't have an account?"}
                 </span>
               </div>
             </div>
@@ -270,15 +293,15 @@ const Auth = () => {
                 type="button"
                 onClick={() => {
                   setIsSignUp(!isSignUp);
-                  setError('');
-                  setSuccess('');
-                  setFullName('');
-                  setEmail('');
-                  setPassword('');
+                  setError("");
+                  setSuccess("");
+                  setFullName("");
+                  setEmail("");
+                  setPassword("");
                 }}
                 className="w-full flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-asceta-blue"
               >
-                {isSignUp ? 'Sign In' : 'Sign Up'}
+                {isSignUp ? "Sign In" : "Sign Up"}
               </button>
             </div>
           </div>
@@ -298,4 +321,3 @@ const Auth = () => {
 };
 
 export default Auth;
-

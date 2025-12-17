@@ -1,6 +1,6 @@
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { supabase } from '../../../config/supabase';
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { supabase } from "../../../config/supabase";
 
 const Form = () => {
   const navigate = useNavigate();
@@ -8,9 +8,11 @@ const Form = () => {
   useEffect(() => {
     // Check if user is authenticated
     const checkAuth = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
       if (!session) {
-        navigate('/accadd/auth');
+        navigate("/accadd/auth");
       }
     };
     checkAuth();
@@ -49,20 +51,27 @@ const Form = () => {
               </div>
             </div>
             <p className="text-gray-600 mb-8">
-              Thank you for completing the authentication and payment steps.
-              The detailed application form will be available soon.
+              Thank you for completing the authentication step. The detailed
+              application form will be available soon.
             </p>
             <div className="space-y-4">
               <button
-                onClick={() => navigate('/accadd/payment')}
+                onClick={() => navigate("/accadd/auth")}
                 className="inline-block px-6 py-3 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-asceta-blue"
               >
-                ← Back to Payment
+                ← Back to Account
               </button>
               <br />
               <button
-                onClick={() => navigate('/accadd')}
+                onClick={() => navigate("/accadd/payment")}
                 className="inline-block px-6 py-3 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-asceta-blue hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-asceta-blue"
+              >
+                Continue to Payment →
+              </button>
+              <br />
+              <button
+                onClick={() => navigate("/accadd")}
+                className="inline-block px-6 py-3 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-asceta-blue"
               >
                 Return to ACCADD Home
               </button>
@@ -75,4 +84,3 @@ const Form = () => {
 };
 
 export default Form;
-
