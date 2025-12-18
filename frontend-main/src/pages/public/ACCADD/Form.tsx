@@ -9,7 +9,7 @@ import FullScreenLoader from "../../../components/FullScreenLoader";
 interface FormData {
   surname: string;
   middleName: string;
-  fullName: string;
+  firstName: string;
   sex: "Male" | "Female" | "Other" | "";
   maritalStatus: "Single" | "Married" | "Divorced" | "Widowed" | "";
   dateOfBirth: string;
@@ -35,7 +35,7 @@ const Form = () => {
   const [formData, setFormData] = useState<FormData>({
     surname: "",
     middleName: "",
-    fullName: "",
+    firstName: "",
     sex: "",
     maritalStatus: "",
     dateOfBirth: "",
@@ -77,7 +77,7 @@ const Form = () => {
               email: app.email || session.user.email || "",
               surname: app.surname || "",
               middleName: app.middleName || "",
-              fullName: app.fullName || "",
+              firstName: app.firstName || "",
               sex: app.sex || "",
               maritalStatus: app.maritalStatus || "",
               dateOfBirth: app.dateOfBirth
@@ -113,17 +113,17 @@ const Form = () => {
         const fullNameFromMetadata =
           session.user.user_metadata?.full_name || "";
 
-        // Extract surname (last word) and keep fullName
+        // Extract surname (last word) and firstName (first word)
         let surname = "";
-        let fullName = fullNameFromMetadata;
+        let firstName = "";
 
         if (fullNameFromMetadata) {
           const nameParts = fullNameFromMetadata.trim().split(/\s+/);
           if (nameParts.length > 0) {
             // Surname is typically the last word in Nigerian names
             surname = nameParts[nameParts.length - 1];
-            // Full name remains the complete name
-            fullName = fullNameFromMetadata;
+            // First name is the first word
+            firstName = nameParts[0];
           }
         }
 
@@ -131,7 +131,7 @@ const Form = () => {
           ...prev,
           email: session.user.email || "",
           surname: surname,
-          fullName: fullName,
+          firstName: firstName,
         }));
       }
     };
@@ -189,8 +189,8 @@ const Form = () => {
       toast.error("Surname is required");
       return false;
     }
-    if (!formData.fullName.trim()) {
-      toast.error("Full name is required");
+    if (!formData.firstName.trim()) {
+      toast.error("First name is required");
       return false;
     }
     if (!formData.sex) {
@@ -285,7 +285,7 @@ const Form = () => {
       submitData.append("email", formData.email);
       submitData.append("surname", formData.surname);
       submitData.append("middleName", formData.middleName);
-      submitData.append("fullName", formData.fullName);
+      submitData.append("firstName", formData.firstName);
       submitData.append("sex", formData.sex);
       submitData.append("maritalStatus", formData.maritalStatus);
       submitData.append("dateOfBirth", formData.dateOfBirth);
@@ -447,17 +447,17 @@ const Form = () => {
 
                   <div>
                     <label
-                      htmlFor="fullName"
+                      htmlFor="firstName"
                       className="block text-sm font-medium text-gray-700 mb-1"
                     >
-                      Full Name <span className="text-red-500">*</span>
+                      First Name <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="text"
-                      id="fullName"
-                      name="fullName"
+                      id="firstName"
+                      name="firstName"
                       required
-                      value={formData.fullName}
+                      value={formData.firstName}
                       onChange={handleInputChange}
                       className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-asceta-blue focus:border-asceta-blue"
                     />

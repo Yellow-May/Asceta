@@ -5,7 +5,7 @@ export interface IAccaddApplication extends Document {
   email: string;
   surname: string;
   middleName?: string;
-  fullName: string;
+  firstName: string;
   sex: "Male" | "Female" | "Other";
   maritalStatus: "Single" | "Married" | "Divorced" | "Widowed";
   dateOfBirth: Date;
@@ -53,7 +53,7 @@ const AccaddApplicationSchema = new Schema<IAccaddApplication>(
       required: false,
       trim: true,
     },
-    fullName: {
+    firstName: {
       type: String,
       required: true,
       trim: true,

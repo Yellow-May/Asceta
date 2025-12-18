@@ -41,7 +41,7 @@ export const submitApplication = async (req: Request, res: Response) => {
       email,
       surname,
       middleName,
-      fullName,
+      firstName,
       sex,
       maritalStatus,
       dateOfBirth,
@@ -72,7 +72,7 @@ export const submitApplication = async (req: Request, res: Response) => {
       !supabaseUserId ||
       !email ||
       !surname ||
-      !fullName ||
+      !firstName ||
       !sex ||
       !maritalStatus ||
       !dateOfBirth ||
@@ -137,7 +137,7 @@ export const submitApplication = async (req: Request, res: Response) => {
       // Update existing application
       existingApplication.surname = surname;
       existingApplication.middleName = middleName || "";
-      existingApplication.fullName = fullName;
+      existingApplication.firstName = firstName;
       existingApplication.sex = sex;
       existingApplication.maritalStatus = maritalStatus;
       existingApplication.dateOfBirth = new Date(dateOfBirth);
@@ -168,7 +168,7 @@ export const submitApplication = async (req: Request, res: Response) => {
       email: email.toLowerCase(),
       surname,
       middleName: middleName || "",
-      fullName,
+      firstName,
       sex,
       maritalStatus,
       dateOfBirth: new Date(dateOfBirth),
@@ -238,7 +238,7 @@ export const getApplication = async (req: Request, res: Response) => {
         id: application._id,
         surname: application.surname,
         middleName: application.middleName,
-        fullName: application.fullName,
+        firstName: application.firstName,
         sex: application.sex,
         maritalStatus: application.maritalStatus,
         dateOfBirth: application.dateOfBirth,

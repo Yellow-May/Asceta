@@ -16,7 +16,8 @@ interface UserDetails {
   application: {
     id: string;
     surname: string;
-    fullName: string;
+    middleName?: string;
+    firstName: string;
     sex: string;
     maritalStatus: string;
     dateOfBirth: string;
@@ -216,9 +217,17 @@ const AccaddDetail = () => {
             </div>
             <div>
               <label className="text-sm font-medium text-gray-500">
-                Full Name
+                Middle Name
               </label>
-              <p className="text-gray-900">{details.application.fullName}</p>
+              <p className="text-gray-900">
+                {details.application.middleName || "N/A"}
+              </p>
+            </div>
+            <div>
+              <label className="text-sm font-medium text-gray-500">
+                First Name
+              </label>
+              <p className="text-gray-900">{details.application.firstName}</p>
             </div>
             <div>
               <label className="text-sm font-medium text-gray-500">Sex</label>

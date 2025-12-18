@@ -168,7 +168,8 @@ export const getUserDetails = async (req: Request, res: Response) => {
         ? {
             id: application._id,
             surname: application.surname,
-            fullName: application.fullName,
+            middleName: application.middleName,
+            firstName: application.firstName,
             sex: application.sex,
             maritalStatus: application.maritalStatus,
             dateOfBirth: application.dateOfBirth,
