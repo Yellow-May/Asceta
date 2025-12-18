@@ -4,6 +4,7 @@ export interface IAccaddApplication extends Document {
   supabaseUserId: string;
   email: string;
   surname: string;
+  middleName?: string;
   fullName: string;
   sex: "Male" | "Female" | "Other";
   maritalStatus: "Single" | "Married" | "Divorced" | "Widowed";
@@ -45,6 +46,11 @@ const AccaddApplicationSchema = new Schema<IAccaddApplication>(
     surname: {
       type: String,
       required: true,
+      trim: true,
+    },
+    middleName: {
+      type: String,
+      required: false,
       trim: true,
     },
     fullName: {

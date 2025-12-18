@@ -8,6 +8,7 @@ import FullScreenLoader from "../../../components/FullScreenLoader";
 
 interface FormData {
   surname: string;
+  middleName: string;
   fullName: string;
   sex: "Male" | "Female" | "Other" | "";
   maritalStatus: "Single" | "Married" | "Divorced" | "Widowed" | "";
@@ -33,6 +34,7 @@ const Form = () => {
   const [passportPreview, setPassportPreview] = useState<string>("");
   const [formData, setFormData] = useState<FormData>({
     surname: "",
+    middleName: "",
     fullName: "",
     sex: "",
     maritalStatus: "",
@@ -74,6 +76,7 @@ const Form = () => {
               ...prev,
               email: app.email || session.user.email || "",
               surname: app.surname || "",
+              middleName: app.middleName || "",
               fullName: app.fullName || "",
               sex: app.sex || "",
               maritalStatus: app.maritalStatus || "",
@@ -281,6 +284,7 @@ const Form = () => {
       submitData.append("supabaseUserId", session.user.id);
       submitData.append("email", formData.email);
       submitData.append("surname", formData.surname);
+      submitData.append("middleName", formData.middleName);
       submitData.append("fullName", formData.fullName);
       submitData.append("sex", formData.sex);
       submitData.append("maritalStatus", formData.maritalStatus);
@@ -419,6 +423,23 @@ const Form = () => {
                       name="surname"
                       required
                       value={formData.surname}
+                      onChange={handleInputChange}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-asceta-blue focus:border-asceta-blue"
+                    />
+                  </div>
+
+                  <div>
+                    <label
+                      htmlFor="middleName"
+                      className="block text-sm font-medium text-gray-700 mb-1"
+                    >
+                      Middle Name
+                    </label>
+                    <input
+                      type="text"
+                      id="middleName"
+                      name="middleName"
+                      value={formData.middleName}
                       onChange={handleInputChange}
                       className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-asceta-blue focus:border-asceta-blue"
                     />
