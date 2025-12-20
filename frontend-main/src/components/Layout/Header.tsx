@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 
 const Header = ({ isAccaddRoute }: { isAccaddRoute: boolean }) => {
-  const { isAuthenticated, logout } = useAuth();
+  const { portalType, logout } = useAuth();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   if (isAccaddRoute) {
@@ -35,8 +35,16 @@ const Header = ({ isAccaddRoute }: { isAccaddRoute: boolean }) => {
               {/* Top Right: Apply Now Button */}
               <div className="flex items-center gap-4">
                 <Link
-                  to={isAuthenticated ? "/accadd/payment" : "/accadd/auth"}
-                  className="bg-white/10 text-white px-4 py-2 lg:px-6 lg:py-3 text-xs lg:text-sm transition-all hover:bg-white/20 transition-colors rounded-full"
+                  to={portalType === "accadd" ? "/accadd/form" : "/accadd/auth"}
+                  onClick={async (e) => {
+                    // If user is logged into a different portal, logout first
+                    if (portalType && portalType !== "accadd") {
+                      e.preventDefault();
+                      await logout();
+                      window.location.href = "/accadd/auth";
+                    }
+                  }}
+                  className="bg-white/10 text-white px-4 py-2 lg:px-6 lg:py-3 text-xs lg:text-sm transition-all hover:bg-white/20 rounded-full"
                 >
                   Apply Now &gt;
                 </Link>
@@ -69,19 +77,42 @@ const Header = ({ isAccaddRoute }: { isAccaddRoute: boolean }) => {
               </Link>
             </div>
             <div className="flex gap-4">
-              {isAuthenticated ? (
+              {portalType === "admission" ? (
+                <>
+                  <Link to="/admission/portal" className="hover:underline">
+                    Admission Portal
+                  </Link>
+                  <button onClick={logout} className="hover:underline">
+                    Logout
+                  </button>
+                </>
+              ) : portalType === "accadd" ? (
+                <>
+                  <Link to="/accadd/form" className="hover:underline">
+                    ACCADD Portal
+                  </Link>
+                  <button onClick={logout} className="hover:underline">
+                    Logout
+                  </button>
+                </>
+              ) : portalType === "student" ? (
                 <>
                   <Link to="/student/dashboard" className="hover:underline">
-                    My Portal
+                    Student Portal
                   </Link>
                   <button onClick={logout} className="hover:underline">
                     Logout
                   </button>
                 </>
               ) : (
-                <Link to="/student/login" className="hover:underline">
-                  My Portal
-                </Link>
+                <>
+                  <Link to="/admission/auth" className="hover:underline">
+                    Admission Portal
+                  </Link>
+                  <Link to="/student/login" className="hover:underline">
+                    Student Portal
+                  </Link>
+                </>
               )}
             </div>
           </div>
@@ -111,9 +142,7 @@ const Header = ({ isAccaddRoute }: { isAccaddRoute: boolean }) => {
               <div className="hidden md:block">
                 <h1 className="text-xl font-bold text-asceta-blue">
                   ABIA STATE COLLEGE OF EDUCATION
-                  <span className="block text-sm">
-                    (TECHNICAL) AROCHUKWU
-                  </span>
+                  <span className="block text-sm">(TECHNICAL) AROCHUKWU</span>
                 </h1>
               </div>
             </div>

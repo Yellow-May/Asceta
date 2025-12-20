@@ -45,6 +45,7 @@ const AccaddPaymentSchema = new Schema<IAccaddPayment>(
 );
 
 // Create indexes for faster queries
+// Note: email, supabaseUserId, and status fields don't have index: true in schema, so we create them here
 AccaddPaymentSchema.index({ email: 1 });
 AccaddPaymentSchema.index({ supabaseUserId: 1 });
 AccaddPaymentSchema.index({ status: 1 });

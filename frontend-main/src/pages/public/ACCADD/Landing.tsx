@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { supabase } from "../../../config/supabase";
+import { useAuth } from "../../../context/AuthContext";
 import FAQAccordion from "../../../components/FAQAccordion";
 
 const faqs = [
@@ -144,42 +144,10 @@ const handleDownloadBrochure = () => {
 };
 
 const Landing = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [_, setFullName] = useState("");
+  const { portalType, logout } = useAuth();
+  const isAccaddAuthenticated = portalType === "accadd";
 
   useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        const {
-          data: { session },
-        } = await supabase.auth.getSession();
-        if (session?.user) {
-          setIsAuthenticated(true);
-          // Get full name from user metadata
-          const name = session.user.user_metadata?.full_name || "";
-          setFullName(name);
-        }
-      } catch (error) {
-        console.error("Error checking auth:", error);
-      }
-    };
-
-    checkAuth();
-
-    // Listen for auth state changes
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      if (session?.user) {
-        setIsAuthenticated(true);
-        const name = session.user.user_metadata?.full_name || "";
-        setFullName(name);
-      } else {
-        setIsAuthenticated(false);
-        setFullName("");
-      }
-    });
-
     // Handle hash navigation to FAQ section
     if (window.location.hash === "#faq") {
       setTimeout(() => {
@@ -189,11 +157,17 @@ const Landing = () => {
         }
       }, 500);
     }
-
-    return () => {
-      subscription.unsubscribe();
-    };
   }, []);
+
+  const handleApplyClick = async (e: React.MouseEvent<HTMLAnchorElement>) => {
+    // If user is logged into a different portal, logout first
+    if (portalType && portalType !== "accadd") {
+      e.preventDefault();
+      await logout();
+      window.location.href = "/accadd/auth";
+    }
+    // If already ACCADD user or not logged in, allow normal navigation
+  };
 
   return (
     <div>
@@ -252,10 +226,12 @@ const Landing = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Link
-              to={isAuthenticated ? "/accadd/form" : "/accadd/auth"}
+              to={isAccaddAuthenticated ? "/accadd/form" : "/accadd/auth"}
+              onClick={handleApplyClick}
               className="bg-white text-black px-4 py-2 lg:px-6 lg:py-3 text-xs lg:text-sm transition-all hover:bg-white/80 transition-colors rounded-full font-semibold"
             >
-              {isAuthenticated ? "Continue Application" : "Apply Now"} &gt;
+              {isAccaddAuthenticated ? "Continue Application" : "Apply Now"}{" "}
+              &gt;
             </Link>
             <button
               onClick={handleDownloadBrochure}
@@ -508,10 +484,11 @@ const Landing = () => {
 
             <div className="text-center">
               <Link
-                to={isAuthenticated ? "/accadd/form" : "/accadd/auth"}
+                to={isAccaddAuthenticated ? "/accadd/form" : "/accadd/auth"}
+                onClick={handleApplyClick}
                 className="inline-block bg-asceta-blue text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-blue-700 transition-colors shadow-lg"
               >
-                {isAuthenticated ? "Continue Application" : "Apply Now"}
+                {isAccaddAuthenticated ? "Continue Application" : "Apply Now"}
               </Link>
             </div>
           </div>
@@ -594,10 +571,11 @@ const Landing = () => {
             become a world-class digital creator.
           </p>
           <Link
-            to={isAuthenticated ? "/accadd/form" : "/accadd/auth"}
+            to={isAccaddAuthenticated ? "/accadd/form" : "/accadd/auth"}
+            onClick={handleApplyClick}
             className="inline-block bg-white text-asceta-blue px-8 py-4 rounded-lg font-bold text-lg hover:bg-gray-100 transition-colors shadow-lg"
           >
-            {isAuthenticated ? "Continue Application" : "Apply Now"}
+            {isAccaddAuthenticated ? "Continue Application" : "Apply Now"}
           </Link>
         </div>
       </section>

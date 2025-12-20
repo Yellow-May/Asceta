@@ -1,7 +1,7 @@
-import { useAuth } from '../../context/AuthContext';
+import { useAuth } from "../../context/AuthContext";
 
 const Profile = () => {
-  const { user } = useAuth();
+  const { studentUser } = useAuth();
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -9,30 +9,42 @@ const Profile = () => {
       <div className="bg-white rounded-lg shadow-md p-6 max-w-2xl">
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-semibold text-gray-700">Name</label>
+            <label className="block text-sm font-semibold text-gray-700">
+              Name
+            </label>
             <p className="text-lg text-gray-900">
-              {user?.firstName} {user?.lastName}
+              {studentUser?.firstName} {studentUser?.lastName}
             </p>
           </div>
           <div>
-            <label className="block text-sm font-semibold text-gray-700">Email</label>
-            <p className="text-lg text-gray-900">{user?.email}</p>
+            <label className="block text-sm font-semibold text-gray-700">
+              Email
+            </label>
+            <p className="text-lg text-gray-900">{studentUser?.email}</p>
           </div>
-          {user?.studentId && (
+          {studentUser?.studentId && (
             <div>
-              <label className="block text-sm font-semibold text-gray-700">Student ID</label>
-              <p className="text-lg text-gray-900">{user.studentId}</p>
+              <label className="block text-sm font-semibold text-gray-700">
+                Student ID
+              </label>
+              <p className="text-lg text-gray-900">{studentUser.studentId}</p>
             </div>
           )}
-          {user?.staffId && (
+          {studentUser?.staffId && (
             <div>
-              <label className="block text-sm font-semibold text-gray-700">Staff ID</label>
-              <p className="text-lg text-gray-900">{user.staffId}</p>
+              <label className="block text-sm font-semibold text-gray-700">
+                Staff ID
+              </label>
+              <p className="text-lg text-gray-900">{studentUser.staffId}</p>
             </div>
           )}
           <div>
-            <label className="block text-sm font-semibold text-gray-700">Role</label>
-            <p className="text-lg text-gray-900 capitalize">{user?.role}</p>
+            <label className="block text-sm font-semibold text-gray-700">
+              Role
+            </label>
+            <p className="text-lg text-gray-900 capitalize">
+              {studentUser?.role}
+            </p>
           </div>
         </div>
         <div className="mt-6">
@@ -46,4 +58,3 @@ const Profile = () => {
 };
 
 export default Profile;
-

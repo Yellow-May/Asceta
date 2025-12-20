@@ -29,6 +29,14 @@ import ACCADDAuth from "./pages/public/ACCADD/Auth";
 import ACCADDPayment from "./pages/public/ACCADD/Payment";
 import ACCADDForm from "./pages/public/ACCADD/Form";
 
+// Admission Portal pages
+import AdmissionAuth from "./pages/public/Admission/Auth";
+import AdmissionPortal from "./pages/public/Admission/Portal";
+import AdmissionApplicationForm from "./pages/public/Admission/ApplicationForm";
+import AdmissionUploadDocuments from "./pages/public/Admission/UploadDocuments";
+import AdmissionPayment from "./pages/public/Admission/Payment";
+import AdmissionStatus from "./pages/public/Admission/Status";
+
 function App() {
   return (
     <AuthProvider>
@@ -50,6 +58,18 @@ function App() {
             <Route path="/accadd/auth" element={<ACCADDAuth />} />
             <Route path="/accadd/payment" element={<ACCADDPayment />} />
             <Route path="/accadd/form" element={<ACCADDForm />} />
+            <Route path="/admission/auth" element={<AdmissionAuth />} />
+            <Route path="/admission/portal" element={<AdmissionPortal />} />
+            <Route
+              path="/admission/application"
+              element={<AdmissionApplicationForm />}
+            />
+            <Route
+              path="/admission/documents"
+              element={<AdmissionUploadDocuments />}
+            />
+            <Route path="/admission/payment" element={<AdmissionPayment />} />
+            <Route path="/admission/status" element={<AdmissionStatus />} />
             <Route path="/student/login" element={<Login />} />
             <Route
               path="/student/dashboard"

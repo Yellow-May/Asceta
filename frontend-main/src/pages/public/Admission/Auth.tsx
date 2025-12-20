@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../context/AuthContext";
 import api from "../../../services/api";
-import { ensureUserExists } from "../../../utils/accaddAuth";
+import { ensureAdmissionUserExists } from "../../../utils/admissionAuth";
 
 const Auth = () => {
   const { signUp, signIn, portalType } = useAuth();
@@ -17,10 +17,10 @@ const Auth = () => {
 
   useEffect(() => {
     // Check if user is already authenticated
-    if (portalType === "accadd") {
-      navigate("/accadd/form");
-    } else if (portalType === "admission") {
+    if (portalType === "admission") {
       navigate("/admission/portal");
+    } else if (portalType === "accadd") {
+      navigate("/accadd/form");
     }
   }, [portalType, navigate]);
 
@@ -32,7 +32,6 @@ const Auth = () => {
 
     try {
       if (isSignUp) {
-        // Sign up with email and password
         if (!fullName.trim()) {
           setError("Full name is required");
           setLoading(false);
@@ -43,21 +42,19 @@ const Auth = () => {
           user,
           session,
           error: signUpError,
-        } = await signUp(email, password, fullName, "accadd");
+        } = await signUp(email, password, fullName, "admission");
 
         if (signUpError) throw signUpError;
 
         if (user) {
-          // Store user data in MongoDB
           try {
-            await api.post("/accadd/auth/register", {
+            await api.post("/admission-portal/auth/register", {
               supabaseUserId: user.id,
               email: user.email,
               fullName: fullName,
             });
           } catch (apiError: any) {
             console.error("Error storing user data in MongoDB:", apiError);
-            // Check if it's a network error
             if (
               apiError.code === "ERR_NETWORK" ||
               apiError.message === "Network Error" ||
@@ -67,7 +64,6 @@ const Auth = () => {
                 "Cannot connect to server. Please make sure the backend server is running."
               );
             } else {
-              // Continue even if MongoDB fails - don't show error to user
               console.warn(
                 "MongoDB registration failed, but Supabase signup succeeded"
               );
@@ -77,18 +73,18 @@ const Auth = () => {
           setSuccess(
             "Account created! Please check your email to verify your account."
           );
+          setLoading(false);
 
-          // If email confirmation is disabled in Supabase, redirect immediately
           if (session) {
-            setTimeout(() => navigate("/accadd/form"), 2000);
+            setTimeout(() => navigate("/admission/portal"), 2000);
           }
+          return;
         }
       } else {
-        // Sign in with email and password
         const { user, error: signInError } = await signIn(
           email,
           password,
-          "accadd"
+          "admission"
         );
 
         if (signInError) {
@@ -97,29 +93,32 @@ const Auth = () => {
         }
 
         if (user) {
-          // Ensure user exists in MongoDB (sync check)
-          await ensureUserExists();
-
           setSuccess("Sign in successful! Redirecting...");
-          setTimeout(() => navigate("/accadd/form"), 1500);
+          setLoading(false);
+
+          // Ensure user exists in background (non-blocking)
+          ensureAdmissionUserExists().catch((err) => {
+            console.error("Error ensuring user exists:", err);
+          });
+
+          setTimeout(() => navigate("/admission/portal"), 1500);
+          return;
         } else {
           throw new Error("Sign in failed. Please try again.");
         }
       }
     } catch (err: any) {
       console.error("Auth error:", err);
-      // Provide more specific error messages
       if (
         err.message?.includes("ERR_NAME_NOT_RESOLVED") ||
         err.message?.includes("Failed to fetch")
       ) {
-        // Check if it's a Supabase error
         if (
           err.message?.includes("supabase.co") ||
           err.code === "ERR_NAME_NOT_RESOLVED"
         ) {
           setError(
-            "Cannot connect to Supabase. Please check your Supabase URL in the .env file. The URL should be in the format: https://xxxxx.supabase.co"
+            "Cannot connect to Supabase. Please check your Supabase URL in the .env file."
           );
         } else {
           setError(
@@ -144,7 +143,7 @@ const Auth = () => {
             {isSignUp ? "Create your account" : "Sign in to your account"}
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
-            ACCADD Application Portal
+            Post-UTME Admission Portal
           </p>
         </div>
 
@@ -310,10 +309,10 @@ const Auth = () => {
 
         <div className="text-center">
           <a
-            href="/accadd"
+            href="/admission"
             className="text-sm text-asceta-blue hover:underline"
           >
-            ← Back to ACCADD Home
+            ← Back to Admission Information
           </a>
         </div>
       </div>

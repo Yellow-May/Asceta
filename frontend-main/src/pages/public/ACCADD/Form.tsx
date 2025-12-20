@@ -61,6 +61,17 @@ const Form = () => {
       if (!session) {
         navigate("/accadd/auth");
       } else {
+        // Verify user belongs to ACCADD portal
+        const portalType = session.user.user_metadata?.portal_type;
+        if (portalType !== "accadd") {
+          // User belongs to different portal, redirect appropriately
+          if (portalType === "admission") {
+            navigate("/admission/portal");
+          } else {
+            navigate("/accadd/auth");
+          }
+          return;
+        }
         // Ensure user exists in MongoDB (sync check)
         await ensureUserExists();
 

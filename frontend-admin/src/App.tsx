@@ -18,6 +18,8 @@ import EventsList from "./pages/events/EventsList";
 import EventsForm from "./pages/events/EventsForm";
 import AccaddList from "./pages/accadd/AccaddList";
 import AccaddDetail from "./pages/accadd/AccaddDetail";
+import AdmissionList from "./pages/admission/AdmissionList";
+import AdmissionDetail from "./pages/admission/AdmissionDetail";
 import Profile from "./pages/Profile";
 
 function App() {
@@ -50,6 +52,11 @@ function App() {
                         <Route
                           path="/accadd/:supabaseUserId"
                           element={<AccaddDetail />}
+                        />
+                        <Route path="/admission" element={<AdmissionList />} />
+                        <Route
+                          path="/admission/:supabaseUserId"
+                          element={<AdmissionDetail />}
                         />
                         <Route path="/profile" element={<Profile />} />
                         <Route

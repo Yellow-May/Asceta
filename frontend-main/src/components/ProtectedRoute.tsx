@@ -1,13 +1,16 @@
-import { Navigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import { Navigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
-  requiredRole?: 'student' | 'lecturer' | 'admin';
+  requiredRole?: "student" | "lecturer" | "admin";
 }
 
-const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, requiredRole }) => {
-  const { isAuthenticated, user, loading } = useAuth();
+const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
+  children,
+  requiredRole,
+}) => {
+  const { portalType, studentUser, loading } = useAuth();
 
   if (loading) {
     return (
@@ -17,11 +20,11 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, requiredRole 
     );
   }
 
-  if (!isAuthenticated) {
+  if (portalType !== "student") {
     return <Navigate to="/student/login" replace />;
   }
 
-  if (requiredRole && user?.role !== requiredRole) {
+  if (requiredRole && studentUser?.role !== requiredRole) {
     return <Navigate to="/" replace />;
   }
 
@@ -29,6 +32,3 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, requiredRole 
 };
 
 export default ProtectedRoute;
-
-
-

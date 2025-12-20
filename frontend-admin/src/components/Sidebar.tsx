@@ -9,6 +9,9 @@ const Sidebar = () => {
     if (path === "/accadd") {
       return location.pathname.startsWith("/accadd");
     }
+    if (path === "/admission") {
+      return location.pathname.startsWith("/admission");
+    }
     return location.pathname === path;
   };
 
@@ -59,6 +62,16 @@ const Sidebar = () => {
               }`}
             >
               ACCADD Applications
+            </Link>
+            <Link
+              to="/admission"
+              className={`block px-6 py-3 hover:bg-gray-700 ${
+                isActive("/admission")
+                  ? "bg-gray-700 border-l-4 border-blue-500"
+                  : ""
+              }`}
+            >
+              Admission Applications
             </Link>
             <Link
               to="/pages"

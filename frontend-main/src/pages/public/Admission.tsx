@@ -1,4 +1,17 @@
+import { useAuth } from "../../context/AuthContext";
+
 const Admission = () => {
+  const { portalType, logout } = useAuth();
+
+  const handleApplyClick = async (e: React.MouseEvent<HTMLAnchorElement>) => {
+    // If user is logged into a different portal, logout first
+    if (portalType && portalType !== "admission") {
+      e.preventDefault();
+      await logout();
+      window.location.href = "/admission/apply";
+    }
+  };
+
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-4xl font-bold text-gray-800 mb-8">Admission</h1>
@@ -47,6 +60,7 @@ const Admission = () => {
         <div className="mt-8 mb-8 text-center">
           <a
             href="/admission/apply"
+            onClick={handleApplyClick}
             className="inline-block px-8 py-3 bg-asceta-blue text-white font-semibold rounded-lg shadow-lg hover:bg-blue-700 transition-colors duration-200"
           >
             Apply Now
